@@ -12,10 +12,10 @@ export const metadata: Metadata = {
 
 const Home = ({}: HomeProps) => {
   return (
-    <div>
-      <h1>Hello Home page</h1>
+    <>
+      <h1 className="h6">Hello Home page</h1>
       <UserDisplay />
-    </div>
+    </>
   );
 };
 

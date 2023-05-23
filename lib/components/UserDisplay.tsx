@@ -15,7 +15,7 @@ const UserDisplay = (props: Props) => {
     <div>
       {session ? (
         <>
-          <h3>Hello, {session?.user?.name}</h3>
+          <h3 className="h5">Hello, {session?.user?.name}</h3>
           <LogoutButton />
         </>
       ) : (

@@ -1,5 +1,5 @@
 import React from "react";
-import NextAuthPovider from "@/lib/components/NextAuthProvider";
+import NextAuthPovider from "@/lib/components/auth/NextAuthProvider";
 import { Roboto } from "next/font/google";
 import "@/lib/styles/global.css";
 
@@ -18,9 +18,7 @@ const layout = ({ children }: Props) => {
       <head>{/* brower icon and links */}</head>
       <NextAuthPovider>
         <body className={`root ${roboto.className}`}>
-          <main className="main">
-            <div className="w-full">{children}</div>
-          </main>
+          <main className="main">{children}</main>
         </body>
       </NextAuthPovider>
     </html>

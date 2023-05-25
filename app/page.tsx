@@ -1,7 +1,7 @@
 import React from "react";
 
 import { Metadata } from "next";
-import UserDisplay from "@/lib/components/UserDisplay";
+import UserDisplay from "@/lib/components/auth/UserDisplay";
 
 interface HomeProps {}
 
@@ -12,10 +12,10 @@ export const metadata: Metadata = {
 
 const Home = ({}: HomeProps) => {
   return (
-    <>
+    <div>
       <h1 className="h6">Hello Home page</h1>
       <UserDisplay />
-    </>
+    </div>
   );
 };
 

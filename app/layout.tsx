@@ -1,28 +1,33 @@
 import React from "react";
 import NextAuthPovider from "@/lib/components/auth/NextAuthProvider";
-import { Roboto } from "next/font/google";
+
 import "@/lib/styles/global.css";
+import Navbar from "@/lib/components/navigation/Navbar";
+import Footer from "@/lib/components/navigation/Footer";
 
 interface Props {
   children: React.ReactNode;
 }
 
-const roboto = Roboto({
-  weight: ["300", "400", "500", "700"],
-  subsets: ["latin"],
-});
-
-const layout = ({ children }: Props) => {
+const RootLayout = ({ children }: Props) => {
   return (
     <html>
-      <head>{/* brower icon and links */}</head>
+      <head>
+        <link rel="icon" href="./phuclong-logo-main.png" />
+      </head>
       <NextAuthPovider>
-        <body className={`root ${roboto.className}`}>
-          <main className="main">{children}</main>
+        <body className={`root`}>
+          <main className="main">
+            <Navbar />
+            <div className="content_wrapper">
+              <div className="content">{children}</div>
+              <Footer />
+            </div>
+          </main>
         </body>
       </NextAuthPovider>
     </html>
   );
 };
 
-export default layout;
+export default RootLayout;

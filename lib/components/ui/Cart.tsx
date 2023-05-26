@@ -15,7 +15,7 @@ const Cart = (props: Props) => {
     >
       <BagIcon />
       <div
-        className={` w-6 h-6 bg-theme-green-main text-white absolute top-[-4px] right-0 rounded-full flex items-center justify-center text-xs font-semibold font-0 pointer-events-none z-50`}
+        className={` w-6 h-6 bg-theme-green-main text-white absolute top-[-4px] right-0 rounded-full flex items-center justify-center text-xs font-semibold font-arimo pointer-events-none z-50`}
       >
         {itemsCount}
       </div>

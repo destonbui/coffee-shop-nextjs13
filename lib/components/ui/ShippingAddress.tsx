@@ -37,12 +37,12 @@ const ShippingAddress = (props: Props) => {
         <span
           className={`pt-1 text-base ${
             !address ? "pb-1" : "leading-3"
-          } font-bold text-theme-green-main `}
+          } font-bold text-theme-green-main font-arimo `}
         >
           {address ? "Giao hàng đến:" : "Giao hàng"}
         </span>
         {address && (
-          <span className="text-sm whitespace-nowrap text-ellipsis w-[175px] overflow-hidden">
+          <span className="text-sm whitespace-nowrap text-ellipsis w-[175px] overflow-hidden font-arimo">
             {address}
           </span>
         )}

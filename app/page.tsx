@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 const Home = ({}: HomeProps) => {
   return (
     <>
-      <h1 className="h6 mt-4">Hello Home page</h1>
+      <h1 className="font-baloo h3 mt-4">Hello Home page</h1>
     </>
   );
 };

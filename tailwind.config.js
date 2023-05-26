@@ -14,6 +14,7 @@ module.exports = {
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
       fontFamily: [`"Baloo 2", cursive`, `"Arimo", san-serif`],
+      colors: { "theme-green-main": "rgb(0, 111, 60)" },
     },
   },
   plugins: [],

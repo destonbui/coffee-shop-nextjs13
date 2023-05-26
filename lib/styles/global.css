@@ -18,6 +18,7 @@ button {
 .root {
   @apply m-0 min-h-screen w-screen flex flex-col items-center bg-white;
   font-family: "Baloo 2", cursive;
+  --theme-green-main: rgb(0, 111, 60);
 }
 
 .main {
@@ -65,5 +66,5 @@ button {
 }
 
 .navbar_container {
-  @apply sticky top-0 flex px-4 2xl:px-0 py-4 items-center;
+  @apply sticky top-0 flex flex-col px-4 2xl:px-0 py-4;
 }

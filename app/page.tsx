@@ -1,7 +1,13 @@
 import React from "react";
 
 import { Metadata } from "next";
-import UserDisplay from "@/lib/components/auth/UserDisplay";
+
+import HeroCarousel from "@/lib/components/section/HeroCarousel";
+
+import carouselImg1 from "@/public/longan-mua-2-tang-1.jpg";
+import carouselImg2 from "@/public/refreshing-longan.jpg";
+import carouselImg3 from "@/public/rewards-banner.jpg";
+import carouselImg4 from "@/public/coconut-caramel.jpg";
 
 interface HomeProps {}
 
@@ -14,7 +20,14 @@ export const metadata: Metadata = {
 const Home = ({}: HomeProps) => {
   return (
     <>
-      <h1 className="font-baloo h3 mt-4">Hello Home page</h1>
+      <HeroCarousel
+        items={[
+          { src: carouselImg1, alt: "Longan mua 2 tặng 1.", link: "#" },
+          { src: carouselImg2, alt: "Refreshing Longan", link: "#" },
+          { src: carouselImg4, alt: "Coconut Caramel", link: "#" },
+          { src: carouselImg3, alt: "Rewards", link: "#" },
+        ]}
+      />
     </>
   );
 };

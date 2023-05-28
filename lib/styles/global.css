@@ -61,5 +61,30 @@ button {
 }
 
 .navbar_container {
-  @apply sticky top-0 flex flex-col px-4 2xl:px-0 py-4;
+  @apply sticky top-0 z-50 flex flex-col px-4 2xl:px-0 py-2 lg:py-4 bg-white;
+}
+
+@keyframes enter {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes leave {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+.slideIn {
+  transition: enter 300ms ease-in-out;
+}
+.slideOut {
+  transition: leave 300ms ease-in-out;
 }

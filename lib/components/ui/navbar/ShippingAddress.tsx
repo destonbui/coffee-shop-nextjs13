@@ -2,7 +2,6 @@
 
 import React from "react";
 import { useState } from "react";
-import { motion } from "framer-motion";
 import Image from "next/image";
 
 import deliveryImg from "@/public/delivery.png";
@@ -19,19 +18,15 @@ const ShippingAddress = (props: Props) => {
       }}
       className={`md:flex overflow-hidden w-[250px] h-10 bg-gray-100 items-center py-2 px-4 rounded-full gap-2 font-1 hidden cursor-pointer`}
     >
-      <motion.div
-        onClick={() => {}}
-        initial={{ scale: 1.2, pointerEvents: "none" }}
-      >
+      <div onClick={() => {}}>
         <Image
           className="w-7 h-auto"
           src={deliveryImg}
           width={512}
           height={512}
-          placeholder="blur"
           alt="delivery image"
         />
-      </motion.div>
+      </div>
 
       <div className="flex flex-col overflow-hidden ml-2 pointer-events-none">
         <span

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import BagIcon from "../icons/BagIcon";
+import BagIcon from "../../icons/BagIcon";
 
 interface Props {}
 

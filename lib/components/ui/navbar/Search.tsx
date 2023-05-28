@@ -17,8 +17,8 @@ const Search = (props: Props) => {
   return (
     <div
       className={`${
-        isFocus ? "border border-theme-green-main md:w-[260px]" : ""
-      }  overflow-hidden transition-all ease-in-out ml-4 lg:ml-8 h-10 bg-gray-100 items-center py-2 px-4 rounded-full gap-2 font-arimo hidden md:flex md:w-[45px] md:hover:w-[260px] lg:w-auto lg:hover:w-auto`}
+        isFocus ? "border border-theme-green-main md:w-[260px]" : "md:w-[45px]"
+      }  overflow-hidden transition-all ease-in-out ml-4 lg:ml-8 h-10 bg-gray-100 items-center py-2 px-4 rounded-full gap-2 font-arimo hidden md:flex  md:hover:w-[260px] lg:w-auto lg:hover:w-auto`}
     >
       <div
         onClick={() => {

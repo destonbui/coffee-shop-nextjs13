@@ -12,12 +12,15 @@ button {
 
 /* Classes */
 .root {
-  @apply m-0 min-h-screen w-screen flex flex-col items-center bg-white;
+  @apply m-0 min-h-screen w-full items-center bg-white;
   --theme-green-main: rgb(0, 111, 60);
+}
+.root section::-webkit-scrollbar {
+  display: none;
 }
 
 .main {
-  @apply min-h-screen max-w-screen-xl flex flex-col w-full;
+  @apply min-h-screen max-w-screen-xl flex flex-col w-full mx-auto;
 }
 
 /* Apply material design guidelines */

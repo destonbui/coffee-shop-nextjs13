@@ -13,7 +13,7 @@ interface Props {}
 
 const Navbar = (props: Props) => {
   return (
-    <nav className="navbar_container ">
+    <nav className="navbar_container">
       <div className="flex items-center">
         <Image
           className="h-12 w-auto"

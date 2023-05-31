@@ -20,7 +20,7 @@ button {
 }
 
 .main {
-  @apply min-h-screen max-w-screen-xl flex flex-col w-full mx-auto;
+  @apply min-h-screen max-w-screen-xl flex flex-col w-full mx-auto scroll-smooth;
 }
 
 /* Apply material design guidelines */

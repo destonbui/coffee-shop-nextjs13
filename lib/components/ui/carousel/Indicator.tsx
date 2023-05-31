@@ -9,10 +9,8 @@ const Indicator = ({ active, handleClick }: Props) => {
   return (
     <div
       onClick={() => handleClick()}
-      className={`rounded-full ${
-        active
-          ? "bg-gray-900/80 h-4 w-4"
-          : "bg-gray-400/80 cursor-pointer h-3 w-3"
+      className={`rounded-full h-3 w-3 ${
+        active ? "bg-gray-600" : "bg-gray-400 cursor-pointer"
       } transition duration-700 ease-in-out`}
     />
   );

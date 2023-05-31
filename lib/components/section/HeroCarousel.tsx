@@ -53,7 +53,7 @@ const HeroCarousel = ({ items }: Props) => {
         );
       })}
 
-      <div className="hidden absolute z-20 bottom-4 lg:flex gap-4 items-center">
+      <div className="hidden absolute z-20 bottom-4 lg:flex gap-2 items-center">
         {items.map((item, i) => {
           return (
             <Indicator

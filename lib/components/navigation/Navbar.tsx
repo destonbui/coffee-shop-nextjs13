@@ -21,6 +21,7 @@ const Navbar = (props: Props) => {
           alt="Phúc Long Coffee & Tea"
           height={200}
           width={150}
+          placeholder="blur"
         />
 
         <Search />

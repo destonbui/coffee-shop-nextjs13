@@ -14,7 +14,7 @@ import { CategoryItemProps } from "../ui/category/CategoryItem";
 interface Props {}
 
 const categories: CategoryItemProps[] = [
-  { src: coffeeCup, title: "Thức uống", link: "products/drinks" },
+  { src: coffeeCup, title: "Thức Uống", link: "products/drinks" },
   { src: coffeeBean, title: "Cà Phê", link: "products/coffee-beans" },
   { src: teaBag, title: "Trà", link: "products/tea" },
   { src: bakery, title: "Bakery", link: "products/bakery" },
@@ -24,7 +24,7 @@ const categories: CategoryItemProps[] = [
 
 const CategoriesNav = (props: Props) => {
   return (
-    <section className="h-[100px] lg:h-[150px] flex items-center justify-start sm:justify-center gap-1 md:gap-4 lg:gap-8 pl-2 mt-2 overflow-x-scroll md:overflow-auto scroll-smooth">
+    <section className="h-[100px] lg:h-[150px] flex items-center justify-start sm:justify-center gap-1 md:gap-4 lg:gap-8 pl-4 md:pl-0 mt-2 overflow-x-scroll md:overflow-x-auto scroll-smooth">
       {categories.map((category, i) => {
         return (
           <CategoryItem

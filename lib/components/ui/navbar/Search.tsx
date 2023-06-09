@@ -24,6 +24,7 @@ const Search = (props: Props) => {
         onClick={() => {
           query();
         }}
+        className="cursor-pointer"
       >
         <SearchIcon color="#9ca3af" />
       </div>

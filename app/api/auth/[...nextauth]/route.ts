@@ -15,6 +15,32 @@ const handler = NextAuth({
   session: {
     strategy: "jwt",
   },
+  callbacks: {
+    async jwt({ token, account }) {
+      const userFromDB = await prisma.user.findUnique({
+        where: { email: token.email as string },
+      });
+
+      if (!userFromDB) {
+        token.role = undefined;
+        return token;
+      }
+
+      token.role = userFromDB.role;
+
+      return token;
+    },
+
+    async session({ token, session }) {
+      if (!token) {
+        return session;
+      }
+
+      session.user.role = token.role;
+
+      return session;
+    },
+  },
 });
 
 export { handler as GET, handler as POST };

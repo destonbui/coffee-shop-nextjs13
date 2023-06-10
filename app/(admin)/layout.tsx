@@ -31,7 +31,7 @@ const RootLayout = ({ children }: Props) => {
       <head>
         <link rel="icon" href="./phuclong-logo-main.png" />
       </head>
-      {/* @ts-expect-error Server Component */}
+
       <NextAuthPovider>
         <body className="m-0 h-full w-full p-0">
           <main className=" min-h-screen bg-white">{children}</main>

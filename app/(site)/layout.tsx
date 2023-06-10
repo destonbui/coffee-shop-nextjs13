@@ -29,7 +29,7 @@ const arimo = Arimo({
 
 const RootLayout = ({ children }: Props) => {
   return (
-    <html className={`${baloo.variable} ${arimo.variable}`}>
+    <html lang="vi" className={`${baloo.variable} ${arimo.variable}`}>
       <head>
         <link rel="icon" href="./phuclong-logo-main.png" />
       </head>

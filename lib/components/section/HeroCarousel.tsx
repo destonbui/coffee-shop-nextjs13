@@ -33,7 +33,7 @@ const HeroCarousel = ({ items }: Props) => {
 
   return (
     <section
-      className="relative rounded-none xl:rounded-lg overflow-hidden flex flex-col items-center h-min"
+      className="relative flex h-min flex-col items-center overflow-hidden rounded-none xl:rounded-lg"
       onMouseOver={() => {
         setHover(true);
       }}
@@ -53,7 +53,7 @@ const HeroCarousel = ({ items }: Props) => {
         );
       })}
 
-      <div className="hidden absolute z-20 bottom-4 lg:flex gap-2 items-center">
+      <div className="absolute bottom-4 z-20 hidden items-center gap-2 lg:flex">
         {items.map((item, i) => {
           return (
             <Indicator

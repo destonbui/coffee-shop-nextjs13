@@ -24,7 +24,7 @@ const categories: CategoryItemProps[] = [
 
 const CategoriesNav = (props: Props) => {
   return (
-    <section className="h-[100px] lg:h-[150px] flex items-center justify-start sm:justify-center gap-1 md:gap-4 lg:gap-8 pl-4 md:pl-0 mt-2 overflow-x-scroll md:overflow-x-auto scroll-smooth">
+    <section className="mt-2 flex h-[100px] items-center justify-start gap-1 overflow-x-scroll scroll-smooth pl-4 sm:justify-center md:gap-4 md:overflow-x-auto md:pl-0 lg:h-[150px] lg:gap-8">
       {categories.map((category, i) => {
         return (
           <CategoryItem

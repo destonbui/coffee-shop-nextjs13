@@ -28,7 +28,7 @@ const Navbar = (props: Props) => {
 
         <div className="flex-grow" />
 
-        <div className="flex gap-4 items-center">
+        <div className="flex items-center gap-4">
           <ShippingAddress />
 
           <StoreIcon />

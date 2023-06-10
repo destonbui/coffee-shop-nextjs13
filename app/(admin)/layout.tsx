@@ -29,17 +29,13 @@ const arimo = Arimo({
 
 const RootLayout = ({ children }: Props) => {
   return (
-    <html className={`${baloo.variable} ${arimo.variable}`}>
+    <html lang="vi" className={`${baloo.variable} ${arimo.variable}`}>
       <head>
         <link rel="icon" href="./phuclong-logo-main.png" />
       </head>
       <NextAuthPovider>
-        <body className="root">
-          <main className="main">
-            <div className="content_wrapper">
-              <div className="content">{children}</div>
-            </div>
-          </main>
+        <body className="m-0 h-full w-full p-0">
+          <main className=" min-h-screen bg-white">{children}</main>
         </body>
       </NextAuthPovider>
     </html>

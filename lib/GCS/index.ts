@@ -3,7 +3,10 @@ import stream from "stream";
 
 const storage = new Storage({
   projectId: process.env.GCS_PROJECT_ID,
-  keyFilename: process.env.GCS_KEY_FILENAME,
+  credentials: {
+    client_email: process.env.GCS_KEY_CLIENT_EMAIL,
+    private_key: process.env.GCS_KEY_PRIVATE_KEY,
+  },
 });
 
 const bucket = storage.bucket(process.env.GCS_BUCKET_ID as string);

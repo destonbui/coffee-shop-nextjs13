@@ -1,9 +1,11 @@
 import React from "react";
 
-interface Props {}
+interface Props {
+  children: React.ReactNode;
+}
 
-const layout = (props: Props) => {
-  return <div>layout</div>;
+const layout = ({ children }: Props) => {
+  return <>{children}</>;
 };
 
 export default layout;

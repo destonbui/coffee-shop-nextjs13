@@ -3,6 +3,7 @@ import GithubProvider from "next-auth/providers/github";
 
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import prisma from "@/lib/prisma";
+import { signIn } from "next-auth/react";
 
 const handler = NextAuth({
   adapter: PrismaAdapter(prisma),
@@ -12,6 +13,10 @@ const handler = NextAuth({
       clientSecret: process.env.GH_CLIENT_SECRET as string,
     }),
   ],
+  pages: {
+    signIn: "/signin",
+    signOut: "/signout",
+  },
   session: {
     strategy: "jwt",
   },
@@ -39,6 +44,19 @@ const handler = NextAuth({
       session.user.role = token.role;
 
       return session;
+    },
+    async signIn({ user }) {
+      const userFromDB = await prisma.user.findUnique({
+        where: { email: user.email as string },
+      });
+      if (!userFromDB) {
+        return false;
+      } else {
+        if (userFromDB.role === "ADMIN") {
+          return true;
+        }
+        return false;
+      }
     },
   },
 });

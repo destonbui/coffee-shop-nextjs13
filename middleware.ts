@@ -1,17 +1,15 @@
 import { withAuth } from "next-auth/middleware";
+import { NextResponse } from "next/server";
 
-export default withAuth(
-  // `withAuth` augments your `Request` with the user's token.
-  function middleware(req) {
-    console.log(req.nextauth.token);
+export default withAuth({
+  callbacks: {
+    authorized: ({ token }) => token?.role === "ADMIN",
   },
-  {
-    callbacks: {
-      authorized: ({ token }) => token?.role === "ADMIN",
-    },
-  }
-);
+  pages: {
+    signIn: "/signin",
+  },
+});
 
 export const config = {
-  matcher: ["/dashboard/:path*", "/api/:endpoint*"],
+  matcher: ["/signin", "/dashboard/:path*", "/api/:endpoint*"],
 };

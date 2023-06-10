@@ -6,8 +6,12 @@ interface NextAuthProviderProps {
   children: React.ReactNode;
 }
 
-const NextAuthPovider = ({ children }: NextAuthProviderProps) => {
-  return <SessionProvider>{children}</SessionProvider>;
+const NextAuthPovider = async ({ children }: NextAuthProviderProps) => {
+  return (
+    <SessionProvider refetchInterval={5 * 60} refetchOnWindowFocus>
+      {children}
+    </SessionProvider>
+  );
 };
 
 export default NextAuthPovider;

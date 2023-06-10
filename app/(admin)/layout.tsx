@@ -2,8 +2,6 @@ import React from "react";
 import NextAuthPovider from "@/lib/components/auth/NextAuthProvider";
 
 import "@/lib/styles/global.css";
-import Navbar from "@/lib/components/navigation/Navbar";
-import Footer from "@/lib/components/navigation/Footer";
 
 import { Baloo_2, Arimo } from "next/font/google";
 
@@ -33,6 +31,7 @@ const RootLayout = ({ children }: Props) => {
       <head>
         <link rel="icon" href="./phuclong-logo-main.png" />
       </head>
+      {/* @ts-expect-error Server Component */}
       <NextAuthPovider>
         <body className="m-0 h-full w-full p-0">
           <main className=" min-h-screen bg-white">{children}</main>

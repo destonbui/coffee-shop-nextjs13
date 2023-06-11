@@ -10,8 +10,10 @@ import PointOfSaleIcon from "@mui/icons-material/PointOfSale";
 import ViewCarouselIcon from "@mui/icons-material/ViewCarousel";
 import CategoryIcon from "@mui/icons-material/Category";
 import EmojiFoodBeverageIcon from "@mui/icons-material/EmojiFoodBeverage";
+import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 
 import AdminNavItemWrapper from "./AdminNavItemWrapper";
+import { signOut } from "next-auth/react";
 
 interface Props {
   session: Session | null;
@@ -24,7 +26,7 @@ const muiIconProps = {
 
 const AdminSidebar = ({ session }: Props) => {
   return (
-    <div className="hidden w-[200px] flex-col gap-1 overflow-x-hidden bg-gray-100 pt-4 transition-all duration-300 ease-in-out md:flex">
+    <div className="hidden w-[200px] flex-col gap-1 overflow-x-hidden bg-gray-100 py-4 transition-all duration-300 ease-in-out md:flex">
       {/* Dashboard nav item */}
       <AdminNavItemWrapper title="Dashboard" href="/dashboard">
         <HomeIcon {...muiIconProps} />
@@ -76,6 +78,18 @@ const AdminSidebar = ({ session }: Props) => {
       <AdminNavItemWrapper title="Products" href="/dashboard/products">
         <EmojiFoodBeverageIcon {...muiIconProps} />
       </AdminNavItemWrapper>
+
+      <div className="flex-grow" />
+
+      {/* Sign out */}
+      <div className="cursor-pointer" onClick={() => signOut()}>
+        <div className="ml-2 mr-2 flex flex-grow items-center gap-3 rounded-md bg-gray-100 px-2 py-2 transition duration-300 ease-in-out hover:bg-gray-200 ">
+          <ExitToAppIcon {...muiIconProps} />
+          <span className="flex-shrink-0 text-base font-medium text-gray-800">
+            Sign out
+          </span>
+        </div>
+      </div>
     </div>
   );
 };

@@ -1,11 +1,23 @@
+import AdminSidebar from "@/lib/components/navigation/AdminSidebar";
+import { getServerSession } from "next-auth";
+import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 interface Props {
   children: React.ReactNode;
 }
 
-const layout = ({ children }: Props) => {
-  return <>{children}</>;
+const layout = async ({ children }: Props) => {
+  const session = await getServerSession();
+
+  return (
+    <div className="relative flex min-h-screen bg-gray-200">
+      {/* Admin sidebar navigation */}
+      <AdminSidebar session={session} />
+      <div className="flex-grow">{children}</div>
+    </div>
+  );
 };
 
 export default layout;

@@ -1,15 +1,15 @@
-import LogoutButton from "@/lib/components/auth/LogoutButton";
-import UserDisplay from "@/lib/components/auth/UserDisplay";
+import { getServerSession } from "next-auth";
 import React from "react";
 
 interface Props {}
 
-const page = (props: Props) => {
+const Dashboard = async (props: Props) => {
+  const session = await getServerSession();
   return (
-    <div>
-      <UserDisplay />
-    </div>
+    <>
+      <h1>Hello, {session?.user.name}</h1>
+    </>
   );
 };
 
-export default page;
+export default Dashboard;

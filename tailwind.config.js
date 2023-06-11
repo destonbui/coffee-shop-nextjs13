@@ -13,7 +13,11 @@ module.exports = {
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
-      colors: { "theme-green-main": "rgb(0, 111, 60)" },
+      colors: {
+        "theme-green-main": "rgb(0, 111, 60)",
+        "theme-green-darker": "rgb(0, 62, 16)",
+        "theme-green-lighter": "rgb(73, 164, 108)",
+      },
       fontFamily: {
         baloo: ["var(--font-baloo)"],
         arimo: ["var(--font-arimo)"],

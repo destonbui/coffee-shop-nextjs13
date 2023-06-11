@@ -3,31 +3,20 @@ import NextAuthPovider from "@/lib/components/auth/NextAuthProvider";
 
 import "@/lib/styles/global.css";
 
-import { Baloo_2, Arimo } from "next/font/google";
+import { Inter } from "next/font/google";
 
 interface Props {
   children: React.ReactNode;
 }
 
-const baloo = Baloo_2({
+const inter = Inter({
   weight: ["400", "500", "600", "700"],
-  style: ["normal"],
   subsets: ["vietnamese"],
-  display: "swap",
-  variable: "--font-baloo",
-});
-
-const arimo = Arimo({
-  weight: ["400"],
-  style: "normal",
-  subsets: ["vietnamese"],
-  display: "swap",
-  variable: "--font-arimo",
 });
 
 const RootLayout = ({ children }: Props) => {
   return (
-    <html lang="vi" className={`${baloo.variable} ${arimo.variable}`}>
+    <html lang="vi" className={`${inter.className}`}>
       <head>
         <link rel="icon" href="./phuclong-logo-main.png" />
       </head>

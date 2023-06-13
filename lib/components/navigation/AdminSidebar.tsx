@@ -11,6 +11,7 @@ import ViewCarouselIcon from "@mui/icons-material/ViewCarousel";
 import CategoryIcon from "@mui/icons-material/Category";
 import EmojiFoodBeverageIcon from "@mui/icons-material/EmojiFoodBeverage";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
+import DiscountIcon from "@mui/icons-material/Discount";
 
 import AdminNavItemWrapper from "./AdminNavItemWrapper";
 import { signOut } from "next-auth/react";
@@ -50,6 +51,9 @@ const AdminSidebar = ({ session }: Props) => {
       <hr className="mx-4 my-2 border-gray-300" />
 
       {/* Orders handling navigation */}
+      <h1 className="ml-4 mt-2 text-lg font-bold text-theme-green-main">
+        Store
+      </h1>
 
       {/* Orders */}
       <AdminNavItemWrapper title="Orders" href="/dashboard/orders">
@@ -64,6 +68,10 @@ const AdminSidebar = ({ session }: Props) => {
       {/* Section divider */}
       <hr className="mx-4 my-2 border-gray-300" />
 
+      <h1 className="ml-4 mt-2 text-lg font-bold text-theme-green-main">
+        Website
+      </h1>
+
       {/* Web banner */}
       <AdminNavItemWrapper title="Hero Carousel" href="/dashboard/carousel">
         <ViewCarouselIcon {...muiIconProps} />
@@ -77,6 +85,11 @@ const AdminSidebar = ({ session }: Props) => {
       {/* Products */}
       <AdminNavItemWrapper title="Products" href="/dashboard/products">
         <EmojiFoodBeverageIcon {...muiIconProps} />
+      </AdminNavItemWrapper>
+
+      {/* Promotions */}
+      <AdminNavItemWrapper title="Promotions" href="/dashboard/promotions">
+        <DiscountIcon {...muiIconProps} />
       </AdminNavItemWrapper>
 
       <div className="flex-grow" />

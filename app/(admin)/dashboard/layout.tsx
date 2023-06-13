@@ -15,7 +15,7 @@ const layout = async ({ children }: Props) => {
     <div className="relative flex min-h-screen bg-gray-200">
       {/* Admin sidebar navigation */}
       <AdminSidebar session={session} />
-      <div className="flex-grow">{children}</div>
+      <div className="ml-4 mt-4 flex-grow">{children}</div>
     </div>
   );
 };

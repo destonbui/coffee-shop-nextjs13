@@ -10,20 +10,19 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
 model Account {
-  id                 String  @id @map("_id") @default(cuid())
-  userId             String  @map("user_id")
-  type               String
-  provider           String
-  providerAccountId  String  @map("provider_account_id")
-  refresh_token      String? @db.String
-  access_token       String? @db.String
-  expires_at         Int?
-  token_type         String?
-  scope              String?
-  id_token           String? @db.String
-  session_state      String?
+  id                String  @id @default(cuid()) @map("_id")
+  userId            String  @map("user_id")
+  type              String
+  provider          String
+  providerAccountId String  @map("provider_account_id")
+  refresh_token     String? @db.String
+  access_token      String? @db.String
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.String
+  session_state     String?
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
@@ -32,7 +31,7 @@ model Account {
 }
 
 model User {
-  id            String    @id @map("_id") @default(cuid())
+  id            String    @id @default(cuid()) @map("_id")
   name          String?
   email         String?   @unique
   emailVerified DateTime? @map("email_verified")
@@ -40,7 +39,7 @@ model User {
 
   role UserRole @default(USER)
 
-  accounts      Account[]
+  accounts Account[]
 
   @@map("users")
 }
@@ -48,4 +47,14 @@ model User {
 enum UserRole {
   ADMIN
   USER
+}
+
+model Banner {
+  id        String @id @default(cuid()) @map("_id")
+  image_url String @unique
+  position Int? @default(0)
+  description String
+  href String?
+
+  @@map("banners")
 }

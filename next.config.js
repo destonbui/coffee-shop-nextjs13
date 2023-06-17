@@ -1,5 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  experimental: {
+    serverActions: true,
+  },
   images: {
     remotePatterns: [
       {
@@ -7,6 +10,12 @@ const nextConfig = {
         hostname: "avatars.githubusercontent.com",
         port: "",
         pathname: "/u/**",
+      },
+      {
+        protocol: "https",
+        hostname: "storage.cloud.google.com",
+        port: "",
+        pathname: "/pl-nextjs13-bucket/**",
       },
     ],
   },

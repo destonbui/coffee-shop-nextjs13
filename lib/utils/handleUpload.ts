@@ -26,7 +26,7 @@ export const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
   formData.append("name", file.name);
 
   try {
-    const res = await fetch("/api/upload", {
+    const res = await fetch("/api/image/upload", {
       method: "POST",
       body: formData,
     });

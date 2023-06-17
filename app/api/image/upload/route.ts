@@ -18,7 +18,9 @@ export async function POST(request: NextRequest) {
     try {
       const res = await uploadImage(file, filename);
 
-      return NextResponse.json(res);
+      const data: { ok: boolean; filepath: string } = JSON.parse(res);
+
+      return NextResponse.json({ success: data.ok, filepath: data.filepath });
     } catch (error) {
       console.log(error);
       return NextResponse.json({ success: false, error: error });

@@ -55,6 +55,7 @@ model Banner {
   position Int? @default(0)
   description String
   href String?
+  active Boolean @default(true)
 
   @@map("banners")
 }

@@ -80,7 +80,7 @@ const CarouselAddDialog = React.forwardRef(function CarouselAddDialog(
         }, 300);
       }
     } catch (error) {
-      throw new Error("Image upload failed!");
+      console.log(error);
     }
   };
 

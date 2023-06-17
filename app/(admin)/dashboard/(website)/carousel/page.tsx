@@ -5,8 +5,6 @@ import { Banner } from "@prisma/client";
 import AddBannerButton from "@/lib/components/ui/carousel/AddBannerButton";
 import BannerDisplay from "@/lib/components/ui/carousel/BannerDisplay";
 
-import useSWR from "swr";
-
 interface Props {}
 
 const HeroCarousel = async (props: Props) => {

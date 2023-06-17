@@ -9,7 +9,7 @@ interface Props {
 
 const BannerDisplay = ({ banners }: Props) => {
   return (
-    <div className="mt-4 flex flex-wrap gap-4">
+    <div className="my-4 flex flex-wrap gap-4">
       {banners.map((banner) => {
         return <BannerItem key={banner.id} data={banner} />;
       })}

@@ -18,17 +18,26 @@ export const metadata: Metadata = {
     "Trải qua hơn 50 năm chắt chiu tinh hoa từ những búp trà xanh và hạt cà phê thượng hạng cùng mong muốn mang lại cho khách hàng những trải nghiệm giá trị nhất khi thưởng thức.",
 };
 
-const Home = ({}: HomeProps) => {
+async function fetchBanners() {
+  const endpoint = process.env.HOST + "/api/banners";
+
+  const res = await fetch(endpoint, {
+    next: { revalidate: 60 },
+  });
+
+  if (!res.ok) {
+    throw new Error("Fetch banners failed");
+  }
+
+  return res.json();
+}
+
+const Home = async ({}: HomeProps) => {
+  const banners = await fetchBanners();
+
   return (
     <>
-      <HeroCarousel
-        items={[
-          { src: carouselImg1, alt: "Longan mua 2 tặng 1.", link: "#" },
-          { src: carouselImg2, alt: "Refreshing Longan", link: "#" },
-          { src: carouselImg4, alt: "Coconut Caramel", link: "#" },
-          { src: carouselImg3, alt: "Rewards", link: "#" },
-        ]}
-      />
+      <HeroCarousel items={banners} />
 
       <CategoriesNav />
     </>

@@ -4,10 +4,11 @@ import { useState, useEffect } from "react";
 
 import Indicator from "../ui/carousel/Indicator";
 
-import CarouselItem, { CarouselItemProps } from "../ui/carousel/CarouselItem";
+import CarouselItem from "../ui/carousel/CarouselItem";
+import { Banner } from "@prisma/client";
 
 interface Props {
-  items: CarouselItemProps[];
+  items: Banner[];
 }
 
 const HeroCarousel = ({ items }: Props) => {
@@ -24,7 +25,7 @@ const HeroCarousel = ({ items }: Props) => {
           setCurrent(0);
         }
       }
-    }, 3500);
+    }, 4000);
 
     return () => {
       clearInterval(intervalId);
@@ -44,11 +45,11 @@ const HeroCarousel = ({ items }: Props) => {
       {items.map((item, i) => {
         return (
           <CarouselItem
-            key={item.alt}
+            key={item.id}
             active={i === current}
-            src={item.src}
-            alt={item.alt}
-            link={item.link}
+            src={item.image_url}
+            alt={item.description}
+            link={item.href ? item.href : "#"}
           />
         );
       })}

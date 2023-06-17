@@ -27,7 +27,7 @@ const muiIconProps = {
 
 const AdminSidebar = ({ session }: Props) => {
   return (
-    <div className="hidden w-[200px] flex-col gap-1 overflow-x-hidden bg-gray-100 py-4 transition-all duration-300 ease-in-out md:flex">
+    <div className="hidden w-[200px] flex-shrink-0 flex-col gap-1 overflow-x-hidden bg-gray-100 py-4 transition-all duration-300 ease-in-out md:flex">
       {/* Dashboard nav item */}
       <AdminNavItemWrapper title="Dashboard" href="/dashboard">
         <HomeIcon {...muiIconProps} />

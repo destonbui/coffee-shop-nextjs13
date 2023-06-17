@@ -1,17 +1,30 @@
 import React from "react";
 
-import { fetchBanner } from "./actions";
-
 import { Banner } from "@prisma/client";
-import Image from "next/image";
+
 import AddBannerButton from "@/lib/components/ui/carousel/AddBannerButton";
+import BannerDisplay from "@/lib/components/ui/carousel/BannerDisplay";
+
+import useSWR from "swr";
 
 interface Props {}
 
 const HeroCarousel = async (props: Props) => {
-  const banners: Banner[] = await fetchBanner();
+  async function getBanners(): Promise<Banner[]> {
+    const endpoint = `${process.env.HOST}/api/banners`;
+    const result = await fetch(endpoint, {
+      method: "GET",
+      cache: "no-store",
+    });
 
-  console.log(banners);
+    if (!result.ok) {
+      throw new Error("Failed to fetch data");
+    }
+
+    return result.json();
+  }
+
+  const banners = await getBanners();
 
   return (
     <>
@@ -45,18 +58,7 @@ const HeroCarousel = async (props: Props) => {
         </div>
       )}
 
-      {banners.map((banner, i) => {
-        return (
-          <div key={i}>
-            <Image
-              src={banner.image_url}
-              width={1280}
-              height={534}
-              alt={banner.description}
-            />
-          </div>
-        );
-      })}
+      {banners[0] && <BannerDisplay banners={banners} />}
     </>
   );
 };

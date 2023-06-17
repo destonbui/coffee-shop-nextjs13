@@ -10,6 +10,7 @@ import React from "react";
 import Button from "@/lib/components/ui/Button";
 import CloseIcon from "@mui/icons-material/Close";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 interface Props {}
 
@@ -38,6 +39,8 @@ const CarouselAddDialog = React.forwardRef(function CarouselAddDialog(
   >("ADD");
 
   const closeBtnRef = React.useRef<HTMLButtonElement>(null);
+
+  const router = useRouter();
 
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
@@ -70,17 +73,15 @@ const CarouselAddDialog = React.forwardRef(function CarouselAddDialog(
 
       if (bannerFromDb) {
         setBtnState("UPLOADED");
+
         setTimeout(() => {
           closeBtnRef.current?.click();
+          router.refresh();
         }, 300);
       }
     } catch (error) {
-      console.log(error);
+      throw new Error("Image upload failed!");
     }
-
-    // if (closeBtnRef) {
-    //   closeBtnRef.current?.click();
-    // }
   };
 
   return (

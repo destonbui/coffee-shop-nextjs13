@@ -29,7 +29,7 @@ export async function uploadImage(imgBlob: Blob, filename: string) {
 
     return JSON.stringify({
       ok: true,
-      filepath: `https://storage.cloud.google.com/pl-nextjs13-bucket/${filename}`,
+      filepath: `https://storage.googleapis.com/pl-nextjs13-bucket/${filename}`,
     });
   } catch (error) {
     return JSON.stringify({

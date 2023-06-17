@@ -13,7 +13,7 @@ const nextConfig = {
       },
       {
         protocol: "https",
-        hostname: "storage.cloud.google.com",
+        hostname: "storage.googleapis.com",
         port: "",
         pathname: "/pl-nextjs13-bucket/**",
       },

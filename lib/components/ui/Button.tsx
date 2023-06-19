@@ -1,5 +1,6 @@
+"use client";
+
 import React from "react";
-import * as Dialog from "@radix-ui/react-dialog";
 
 interface Props {
   children?: React.ReactNode;

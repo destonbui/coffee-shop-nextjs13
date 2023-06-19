@@ -19,7 +19,7 @@ const AddBannerButton = (props: Props) => {
       </Dialog.Trigger>
 
       <Dialog.Portal>
-        <Dialog.Overlay className="fixed inset-0 bg-gray-950/50" />
+        <Dialog.Overlay className="Dialog_Overlay" />
         <CarouselAddDialog />
       </Dialog.Portal>
     </Dialog.Root>

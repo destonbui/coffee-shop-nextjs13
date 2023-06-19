@@ -6,41 +6,46 @@ import Image from "next/image";
 
 import { AspectRatio } from "@radix-ui/react-aspect-ratio";
 
-import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+import DeleteItemBtn from "./item/DeleteItemBtn";
+import ActiveDisplay from "./item/ActiveDisplay";
+import DetailDisplay from "./item/DetailDisplay";
+import ChangePositionBtn from "./item/ChangePositionBtn";
 
 interface Props {
   data: Banner;
+  forwardPos?: number;
+  backwardPos?: number;
 }
 
-const BannerItem = ({ data }: Props) => {
+const BannerItem = ({ data, forwardPos, backwardPos }: Props) => {
   return (
     <div className="flex w-[300px] flex-col overflow-hidden rounded-md bg-gray-100 p-2 shadow-md">
       <div className="-mx-2 -mt-2 flex h-8 flex-row-reverse items-center gap-2 px-2">
         {/* Delete btn */}
-        <button className="flex h-6 w-6 items-center justify-center rounded-full p-1 transition-all duration-300 ease-in-out hover:bg-red-100 active:scale-90 active:bg-red-300">
-          <DeleteForeverIcon className="flex h-5 items-center justify-center text-red-700" />
-        </button>
+        <DeleteItemBtn id={data.id} />
 
         {/* Display state chip */}
-        <div
-          className={`flex items-center gap-1 rounded-full border ${
-            data.active ? "border-theme-green-main" : "border-gray-500"
-          } px-2`}
-        >
-          <span className="text-sm font-normal">
-            {data.active ? "Active" : "Inactive"}
-          </span>
-          <div
-            className={`h-3 w-3 rounded-full ${
-              data.active ? "bg-theme-green-main" : "bg-gray-400"
-            } shadow-sm`}
-          />
-        </div>
+        <ActiveDisplay id={data.id} active={data.active} />
+
+        <div className="flex-grow" />
+
+        <ChangePositionBtn
+          id={data.id}
+          direction="right"
+          {...(backwardPos ? { newPos: backwardPos } : {})}
+        />
+
+        <ChangePositionBtn
+          id={data.id}
+          direction="left"
+          {...(forwardPos ? { newPos: forwardPos } : {})}
+        />
       </div>
 
       {/* details */}
       <AspectRatio ratio={12 / 5} className="-mx-2">
         <Image
+          priority
           src={data.image_url}
           width={1280}
           height={534}
@@ -48,10 +53,20 @@ const BannerItem = ({ data }: Props) => {
           className="h-auto w-full"
         />
       </AspectRatio>
-      <div className="mt-2 flex flex-col gap-1">
-        <p>Position: {data.position}</p>
-        <p>Description: {data.description}</p>
-        <p>Link: {data.href ? data.href : "undefined"}</p>
+
+      {/* Banner details */}
+      <div className="mt-4 flex flex-col gap-2">
+        <DetailDisplay
+          id={data.id}
+          title="Description"
+          value={data.description}
+        />
+
+        <DetailDisplay
+          id={data.id}
+          title="Link"
+          value={data.href ? data.href : "undefined"}
+        />
       </div>
     </div>
   );

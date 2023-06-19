@@ -68,6 +68,7 @@ const CarouselAddDialog = React.forwardRef(function CarouselAddDialog(
       const bannerFromDb = await addBanner({
         filePath: data.filepath,
         desc: desc,
+        position: Date.now(),
         ...(link !== "" ? { link } : {}),
       });
 
@@ -77,7 +78,7 @@ const CarouselAddDialog = React.forwardRef(function CarouselAddDialog(
         setTimeout(() => {
           closeBtnRef.current?.click();
           router.refresh();
-        }, 300);
+        }, 1000);
       }
     } catch (error) {
       console.log(error);
@@ -85,9 +86,9 @@ const CarouselAddDialog = React.forwardRef(function CarouselAddDialog(
   };
 
   return (
-    <Dialog.Content className="fixed left-1/2 top-1/2 min-h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-md bg-white p-4">
-      <div className="flex items-center">
-        <Dialog.Title className="h4 flex-grow uppercase text-theme-green-main">
+    <Dialog.Content className="fixed left-1/2 top-1/2 max-h-[600px] min-h-[300px] w-[500px] -translate-x-1/2 -translate-y-1/2 overflow-auto rounded-md bg-white p-4">
+      <div className="flex items-center border-b border-theme-green-main pb-2">
+        <Dialog.Title className="flex-grow text-xl font-semibold uppercase tracking-widest text-theme-green-darker">
           Thêm banner
         </Dialog.Title>
         <Dialog.Close asChild>

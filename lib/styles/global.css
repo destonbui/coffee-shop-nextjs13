@@ -63,3 +63,7 @@ section::-webkit-scrollbar {
 .navbar_container {
   @apply sticky top-0 z-50 flex flex-col bg-white px-4 py-2 lg:py-4 2xl:px-0;
 }
+
+.Dialog_Overlay {
+  @apply fixed inset-0 bg-gray-950/50;
+}

@@ -37,9 +37,9 @@ const AdminSidebar = ({ session }: Props) => {
       <AdminNavItemWrapper
         title={session?.user.name as string}
         href="/dashboard/profile"
-        image={true}
       >
         <Image
+          priority
           src={session?.user.image as string}
           width={24}
           height={24}

@@ -6,6 +6,9 @@ export async function getBanners() {
       orderBy: {
         position: "asc",
       },
+      where: {
+        active: true,
+      },
     });
     return { banners };
   } catch (error) {

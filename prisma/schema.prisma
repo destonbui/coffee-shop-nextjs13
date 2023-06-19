@@ -52,7 +52,7 @@ enum UserRole {
 model Banner {
   id        String @id @default(cuid()) @map("_id")
   image_url String @unique
-  position Int? @default(0)
+  position Int
   description String
   href String?
   active Boolean @default(true)

@@ -15,7 +15,15 @@ const AddBannerButton = (props: Props) => {
   return (
     <Dialog.Root>
       <Dialog.Trigger asChild>
-        <Button iconEl={<AddIcon className="body1 z-20" />}>Thêm banner</Button>
+        <Button
+          iconEl={
+            <AddIcon
+              sx={{ fontSize: "1rem", position: "relative", zIndex: 20 }}
+            />
+          }
+        >
+          Thêm banner
+        </Button>
       </Dialog.Trigger>
 
       <Dialog.Portal>

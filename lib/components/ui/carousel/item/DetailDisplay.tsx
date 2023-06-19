@@ -57,8 +57,8 @@ const DetailDisplay = ({ id, title, value }: Props) => {
               enterDelay={300}
               arrow
             >
-              <button className=" hidden h-5 w-5 items-center justify-center rounded-full text-theme-green-main transition-all duration-300 ease-in-out hover:bg-theme-green-lighter/40 active:bg-theme-green-lighter/80 group-hover:flex">
-                <EditIcon className="h-4 w-4 " />
+              <button className=" flex h-5 w-5 items-center justify-center rounded-full text-theme-green-main opacity-0 transition-all duration-300 ease-in-out hover:bg-theme-green-lighter/40 active:bg-theme-green-lighter/80 group-hover:opacity-100">
+                <EditIcon sx={{ fontSize: "1rem" }} />
               </button>
             </Tooltip>
           </Dialog.Trigger>

@@ -16,7 +16,7 @@ interface Props {
 
 const ChangePositionBtn = ({ id, newPos, direction }: Props) => {
   const iconProps = {
-    className: "h-5 w-5",
+    sx: { fontSize: "1.25rem" },
   };
   return (
     <Tooltip

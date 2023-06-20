@@ -18,7 +18,10 @@ const RootLayout = ({ children }: Props) => {
   return (
     <html lang="vi" className={`${inter.className}`}>
       <head>
-        <link rel="icon" href="./phuclong-logo-main.png" />
+        <link
+          rel="icon"
+          href="https://storage.googleapis.com/pl-nextjs13-bucket/phuclong-logo-main.png"
+        />
       </head>
 
       <NextAuthPovider>

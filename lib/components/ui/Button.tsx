@@ -4,7 +4,7 @@ import React from "react";
 
 interface Props {
   children?: React.ReactNode;
-  iconEl?: React.ReactElement;
+  iconEl?: React.ReactNode;
   variant?: "default" | "outline";
   color?: "default" | "error";
   disabled?: boolean;

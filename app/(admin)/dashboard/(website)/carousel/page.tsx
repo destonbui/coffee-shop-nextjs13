@@ -16,7 +16,7 @@ const HeroCarousel = async (props: Props) => {
   if (banners) {
     return (
       <>
-        <h1 className="h4 text-theme-green-main">Website Hero Carousel</h1>
+        <h1 className="h4 text-theme-green-main">Hero Carousel</h1>
         <p className="body1">
           Thêm, chỉnh sửa hoặc thay đổi vị trí hiển thị của các banner trong
           carousel trên website

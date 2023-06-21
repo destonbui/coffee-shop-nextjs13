@@ -59,3 +59,37 @@ model Banner {
 
   @@map("banners")
 }
+
+model Category {
+  id String @id @default(cuid()) @map("_id")
+  name String @unique
+  active Boolean @default(true)
+
+  subcategories Subcategory[]
+  products Product[]
+}
+
+model Subcategory {
+  id String @id @default(cuid()) @map("_id")
+  name String @unique
+  active Boolean @default(true)
+  category_name String
+
+  category Category @relation(fields: [category_name], references: [name], onDelete: Cascade)
+
+  products Product[]
+}
+
+model Product {
+  id String @id @default(cuid()) @map("_id")
+  category_name String
+  subcategory_name String?
+  active Boolean @default(true)
+  name String @unique
+
+
+  category Category @relation(fields: [category_name], references: [name], onDelete: Cascade)
+  subcategory Subcategory? @relation(fields: [subcategory_name], references: [name], onDelete: Cascade)
+
+  @@map("products")
+}

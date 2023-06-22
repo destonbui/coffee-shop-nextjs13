@@ -63,21 +63,28 @@ model Banner {
 model Category {
   id String @id @default(cuid()) @map("_id")
   name String @unique
+  description String
+  image_url String @unique
   active Boolean @default(true)
 
   subcategories Subcategory[]
   products Product[]
+
+  @@map("categories")
 }
 
 model Subcategory {
   id String @id @default(cuid()) @map("_id")
   name String @unique
+  description String?
   active Boolean @default(true)
   category_name String
 
   category Category @relation(fields: [category_name], references: [name], onDelete: Cascade)
 
   products Product[]
+
+  @@map("subcategories")
 }
 
 model Product {
@@ -86,6 +93,7 @@ model Product {
   subcategory_name String?
   active Boolean @default(true)
   name String @unique
+  description String
 
 
   category Category @relation(fields: [category_name], references: [name], onDelete: Cascade)

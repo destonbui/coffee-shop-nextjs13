@@ -10,23 +10,27 @@ type addBannerProps = {
   position: number;
 };
 
-export async function addBanner({
+export async function actionAddBanner({
   filePath,
   desc,
   link,
   position,
 }: addBannerProps) {
-  const banner = await prisma.banner.create({
-    data: {
-      image_url: filePath,
-      description: desc,
-      position: position,
-      ...(link ? { href: link } : {}),
-    },
-  });
+  try {
+    const banner = await prisma.banner.create({
+      data: {
+        image_url: filePath,
+        description: desc,
+        position: position,
+        ...(link ? { href: link } : {}),
+      },
+    });
 
-  revalidatePath("/");
-  return JSON.stringify(banner);
+    revalidatePath("/");
+    return { banner };
+  } catch (error) {
+    return { error };
+  }
 }
 
 export async function actionFetchBanner() {

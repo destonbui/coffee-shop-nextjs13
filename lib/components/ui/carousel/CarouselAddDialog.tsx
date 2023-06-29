@@ -1,6 +1,6 @@
 "use client";
 
-import { addBanner } from "@/app/(admin)/dashboard/(website)/carousel/actions";
+import { actionAddBanner } from "@/app/(admin)/dashboard/(website)/carousel/actions";
 
 import * as Dialog from "@radix-ui/react-dialog";
 import * as AspectRatio from "@radix-ui/react-aspect-ratio";
@@ -31,7 +31,7 @@ const CarouselAddDialog = React.forwardRef(function CarouselAddDialog(
   refs
 ) {
   const [previewSrc, setSrc] = React.useState<null | string>(null);
-  const [file, setFile] = React.useState<null | File>(null);
+  const [file, setFile] = React.useState<null | Blob>(null);
   const [desc, setDesc] = React.useState<string>("");
   const [link, setLink] = React.useState<string>("");
   const [btnState, setBtnState] = React.useState<
@@ -52,36 +52,42 @@ const CarouselAddDialog = React.forwardRef(function CarouselAddDialog(
       formData.append("file", file);
     }
 
-    try {
-      const result = await fetch("/api/image/upload", {
-        method: "POST",
-        body: formData,
-      });
+    const result = await fetch("/api/image/upload", {
+      method: "POST",
+      body: formData,
+    });
 
-      if (!result.ok) {
-        console.error("something went wrong, check your console.");
-        return;
+    if (!result.ok) {
+      throw new Error(
+        "Something went wrong when calling upload api, please check your console."
+      );
+    } else {
+      const data: { success: boolean; error?: string; filepath?: string } =
+        await result.json();
+
+      if (!data.success) {
+        throw new Error(data.error);
       }
 
-      const data: { success: boolean; filepath: string } = await result.json();
+      if (data.filepath) {
+        const { banner, error } = await actionAddBanner({
+          filePath: data.filepath,
+          desc: desc,
+          position: Date.now(),
+          ...(link !== "" ? { link } : {}),
+        });
 
-      const bannerFromDb = await addBanner({
-        filePath: data.filepath,
-        desc: desc,
-        position: Date.now(),
-        ...(link !== "" ? { link } : {}),
-      });
+        if (error) {
+          throw new Error("Add category failed!");
+        }
 
-      if (bannerFromDb) {
-        setBtnState("UPLOADED");
+        if (banner) {
+          setBtnState("UPLOADED");
 
-        setTimeout(() => {
           closeBtnRef.current?.click();
           router.refresh();
-        }, 1000);
+        }
       }
-    } catch (error) {
-      console.log(error);
     }
   };
 

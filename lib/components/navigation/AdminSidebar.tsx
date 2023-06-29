@@ -39,12 +39,11 @@ const AdminSidebar = ({ session }: Props) => {
         href="/dashboard/profile"
       >
         <Image
-          priority
           src={session?.user.image as string}
           width={24}
           height={24}
           alt="Admin avatar"
-          className="rounded-full"
+          className="h-[24px] w-auto rounded-full"
         />
       </AdminNavItemWrapper>
 

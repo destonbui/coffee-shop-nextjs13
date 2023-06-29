@@ -63,9 +63,11 @@ model Banner {
 model Category {
   id String @id @default(cuid()) @map("_id")
   name String @unique
-  description String
+  description String?
   image_url String @unique
   active Boolean @default(true)
+  products_total Int @default(0)
+  subcategories_names String[]
 
   subcategories Subcategory[]
   products Product[]
@@ -79,6 +81,7 @@ model Subcategory {
   description String?
   active Boolean @default(true)
   category_name String
+  products_total Int @default(0)
 
   category Category @relation(fields: [category_name], references: [name], onDelete: Cascade)
 

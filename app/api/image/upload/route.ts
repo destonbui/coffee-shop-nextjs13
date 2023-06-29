@@ -15,15 +15,11 @@ export async function POST(request: NextRequest) {
     const uniqueSuffix = `${Date.now()}`;
     const filename = `${uniqueSuffix}-${file.name}`;
 
-    try {
-      const res = await uploadImage(file, filename);
+    const { filepath, error } = await uploadImage(file, filename);
 
-      const data: { ok: boolean; filepath: string } = JSON.parse(res);
-
-      return NextResponse.json({ success: data.ok, filepath: data.filepath });
-    } catch (error) {
-      console.log(error);
-      return NextResponse.json({ success: false, error: error });
+    if (error) {
+      return NextResponse.json({ succes: false, error });
     }
+    return NextResponse.json({ success: true, filepath: filepath });
   }
 }

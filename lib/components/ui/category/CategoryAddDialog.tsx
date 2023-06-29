@@ -1,9 +1,6 @@
 "use client";
 
-import { addBanner } from "@/app/(admin)/dashboard/(website)/carousel/actions";
-
 import * as Dialog from "@radix-ui/react-dialog";
-import * as AspectRatio from "@radix-ui/react-aspect-ratio";
 
 import React from "react";
 
@@ -11,6 +8,7 @@ import Button from "@/lib/components/ui/Button";
 import CloseIcon from "@mui/icons-material/Close";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { actionAddCategory } from "@/app/(admin)/dashboard/(website)/categories/actions";
 
 interface Props {}
 
@@ -31,7 +29,7 @@ const CategoryAddDialog = React.forwardRef(function CarouselAddDialog(
   refs
 ) {
   const [previewSrc, setSrc] = React.useState<null | string>(null);
-  const [file, setFile] = React.useState<null | File>(null);
+  const [file, setFile] = React.useState<null | Blob>(null);
   const [name, setName] = React.useState<string>("");
   const [btnState, setBtnState] = React.useState<
     "ADD" | "UPLOADING" | "UPLOADED"
@@ -51,36 +49,40 @@ const CategoryAddDialog = React.forwardRef(function CarouselAddDialog(
       formData.append("file", file);
     }
 
-    try {
-      const result = await fetch("/api/image/upload", {
-        method: "POST",
-        body: formData,
-      });
+    const result = await fetch("/api/image/upload", {
+      method: "POST",
+      body: formData,
+    });
 
-      if (!result.ok) {
-        console.error("something went wrong, check your console.");
-        return;
+    if (!result.ok) {
+      throw new Error(
+        "Something went wrong when calling upload api, please check your console."
+      );
+    } else {
+      const data: { success: boolean; error?: string; filepath?: string } =
+        await result.json();
+
+      if (!data.success) {
+        throw new Error(data.error);
       }
 
-      const data: { success: boolean; filepath: string } = await result.json();
+      if (data.filepath) {
+        const { category, error } = await actionAddCategory({
+          filePath: data.filepath,
+          name: name,
+        });
 
-      //   const bannerFromDb = await addBanner({
-      //     filePath: data.filepath,
-      //     desc: desc,
-      //     position: Date.now(),
-      //     ...(link !== "" ? { link } : {}),
-      //   });
+        if (error) {
+          throw new Error("Add category failed!");
+        }
 
-      //   if (bannerFromDb) {
-      //     setBtnState("UPLOADED");
+        if (category) {
+          setBtnState("UPLOADED");
 
-      //     setTimeout(() => {
-      //       closeBtnRef.current?.click();
-      //       router.refresh();
-      //     }, 1000);
-      //   }
-    } catch (error) {
-      console.log(error);
+          closeBtnRef.current?.click();
+          router.refresh();
+        }
+      }
     }
   };
 
@@ -191,22 +193,6 @@ const CategoryAddDialog = React.forwardRef(function CarouselAddDialog(
             />
           </div>
 
-          {/* <div className="flex flex-col">
-            <label htmlFor="img-link" className="h6 mb-1 text-gray-800">
-              Link
-            </label>
-            <input
-              value={link}
-              onChange={(e) => {
-                setLink(e.target.value);
-              }}
-              className="body1 rounded-md border-2 border-gray-300 px-2 py-1 outline-none focus:border-theme-green-main"
-              type="url"
-              id="img-link"
-              name="img-link"
-              placeholder="Enter link to detail post."
-            />
-          </div> */}
           {/* Submit */}
           <div className="flex flex-col">
             <button

@@ -67,3 +67,19 @@ section::-webkit-scrollbar {
 .Dialog_Overlay {
   @apply fixed inset-0 bg-gray-950/50;
 }
+
+table {
+  @apply w-full bg-white;
+}
+
+th {
+  @apply min-w-[150px] px-4 py-2 text-left text-theme-green-main;
+}
+
+td {
+  @apply px-4 py-2;
+}
+
+tr {
+  @apply border hover:bg-theme-green-main/10;
+}

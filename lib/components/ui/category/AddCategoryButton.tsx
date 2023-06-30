@@ -7,7 +7,7 @@ import AddIcon from "@mui/icons-material/Add";
 import Button from "@/lib/components/ui/Button";
 
 import * as Dialog from "@radix-ui/react-dialog";
-import CarouselAddDialog from "@/lib/components/ui/carousel/CarouselAddDialog";
+
 import CategoryAddDialog from "./CategoryAddDialog";
 
 interface Props {}

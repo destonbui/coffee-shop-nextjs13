@@ -2,6 +2,7 @@ import React from "react";
 
 import Image from "next/image";
 import { Category } from "@prisma/client";
+import { DotsHorizontalIcon } from "@radix-ui/react-icons";
 
 type Props = {
   categories: Category[];
@@ -9,7 +10,7 @@ type Props = {
 
 const CategoriesTableDisplay = ({ categories }: Props) => {
   return (
-    <div className="mb-4 flex w-full flex-nowrap overflow-x-auto rounded-md">
+    <div className="mb-4 w-full overflow-x-auto rounded-md shadow-md">
       <table>
         <thead>
           <tr>
@@ -48,6 +49,11 @@ const CategoriesTableDisplay = ({ categories }: Props) => {
                 </td>
                 <td>
                   <span>{category.description}</span>
+                </td>
+                <td>
+                  <button className="group relative rounded-full p-1 text-sm text-white">
+                    <DotsHorizontalIcon className="h-5 w-5 text-gray-400 transition-all duration-150 ease-in-out group-hover:text-gray-700" />
+                  </button>
                 </td>
               </tr>
             );

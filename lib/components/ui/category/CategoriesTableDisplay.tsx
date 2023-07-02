@@ -3,6 +3,7 @@ import React from "react";
 import Image from "next/image";
 import { Category } from "@prisma/client";
 import { DotsHorizontalIcon } from "@radix-ui/react-icons";
+import CategoryEditMenu from "./CategoryEditMenu";
 
 type Props = {
   categories: Category[];
@@ -14,11 +15,12 @@ const CategoriesTableDisplay = ({ categories }: Props) => {
       <table>
         <thead>
           <tr>
-            <th>Image</th>
-            <th>Name</th>
-            <th>Total products</th>
-            <th>Subcategories</th>
-            <th>Description</th>
+            <th id="col-normal">Image</th>
+            <th id="col-normal">Name</th>
+            <th id="col-normal">Total products</th>
+            <th id="col-normal">Subcategories</th>
+            <th id="col-normal">Description</th>
+            <th id="col-extra"></th>
           </tr>
         </thead>
         <tbody>
@@ -44,16 +46,18 @@ const CategoriesTableDisplay = ({ categories }: Props) => {
                   <span>
                     {category.subcategories_names[0]
                       ? category.subcategories_names
-                      : "[]"}
+                      : "Empty"}
                   </span>
                 </td>
                 <td>
-                  <span>{category.description}</span>
+                  <span>
+                    {category.description
+                      ? category.description
+                      : "No description"}
+                  </span>
                 </td>
                 <td>
-                  <button className="group relative rounded-full p-1 text-sm text-white">
-                    <DotsHorizontalIcon className="h-5 w-5 text-gray-400 transition-all duration-150 ease-in-out group-hover:text-gray-700" />
-                  </button>
+                  <CategoryEditMenu />
                 </td>
               </tr>
             );

@@ -5,7 +5,8 @@ import * as Dialog from "@radix-ui/react-dialog";
 import React from "react";
 
 import Button from "@/lib/components/ui/Button";
-import CloseIcon from "@mui/icons-material/Close";
+import { Cross2Icon } from "@radix-ui/react-icons";
+
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { actionAddCategory } from "@/app/(admin)/dashboard/(website)/categories/actions";
@@ -97,10 +98,7 @@ const CategoryAddDialog = React.forwardRef(function CarouselAddDialog(
             ref={closeBtnRef}
             className="group flex items-center justify-center rounded-full bg-gray-300 p-1 transition-all duration-300 ease-in-out hover:bg-theme-green-main"
           >
-            <CloseIcon
-              sx={{ fontSize: "16px" }}
-              className="text-theme-green-darker transition-all duration-300 ease-in-out group-hover:text-white"
-            />
+            <Cross2Icon className="text-theme-green-darker transition-all duration-300 ease-in-out group-hover:text-white" />
           </button>
         </Dialog.Close>
       </div>
@@ -127,7 +125,7 @@ const CategoryAddDialog = React.forwardRef(function CarouselAddDialog(
                   onChange={(e) => {
                     const files = e.target.files;
 
-                    if (files) {
+                    if (files && files[0]) {
                       setSrc(window.URL.createObjectURL(files[0]));
                       setFile(files[0]);
                     }
@@ -167,9 +165,9 @@ const CategoryAddDialog = React.forwardRef(function CarouselAddDialog(
                   }}
                   variant="outline"
                   color="error"
-                  iconEl={<CloseIcon className="body1 text-red-700" />}
+                  iconEl={<Cross2Icon className="mt-[1px] text-red-700" />}
                 >
-                  Remove image
+                  REMOVE IMAGE
                 </Button>
               </div>
             )}

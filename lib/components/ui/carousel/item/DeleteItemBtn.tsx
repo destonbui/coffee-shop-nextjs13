@@ -1,7 +1,7 @@
 "use client";
 
 import Tooltip from "@mui/material/Tooltip";
-import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+import { Cross2Icon } from "@radix-ui/react-icons";
 
 import React from "react";
 import { actionDeleteBanner } from "@/app/(admin)/dashboard/(website)/carousel/actions";
@@ -23,10 +23,7 @@ const DeleteItemBtn = ({ id }: Props) => {
         }}
         className="flex h-6 w-6 items-center justify-center rounded-full p-1 transition-all duration-300 ease-in-out hover:bg-red-100 active:scale-90 active:bg-red-300"
       >
-        <DeleteForeverIcon
-          sx={{ fontSize: "1.25rem" }}
-          className="flex items-center justify-center text-red-700"
-        />
+        <Cross2Icon className="flex items-center justify-center text-red-700" />
       </button>
     </Tooltip>
   );

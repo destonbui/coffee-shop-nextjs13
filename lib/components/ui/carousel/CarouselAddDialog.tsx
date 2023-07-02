@@ -8,7 +8,8 @@ import * as AspectRatio from "@radix-ui/react-aspect-ratio";
 import React from "react";
 
 import Button from "@/lib/components/ui/Button";
-import CloseIcon from "@mui/icons-material/Close";
+import { Cross2Icon } from "@radix-ui/react-icons";
+
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
@@ -102,10 +103,7 @@ const CarouselAddDialog = React.forwardRef(function CarouselAddDialog(
             ref={closeBtnRef}
             className="group flex items-center justify-center rounded-full bg-gray-300 p-1 transition-all duration-300 ease-in-out hover:bg-theme-green-main"
           >
-            <CloseIcon
-              sx={{ fontSize: "16px" }}
-              className="text-theme-green-darker transition-all duration-300 ease-in-out group-hover:text-white"
-            />
+            <Cross2Icon className="text-theme-green-darker transition-all duration-300 ease-in-out group-hover:text-white" />
           </button>
         </Dialog.Close>
       </div>
@@ -173,7 +171,7 @@ const CarouselAddDialog = React.forwardRef(function CarouselAddDialog(
                   }}
                   variant="outline"
                   color="error"
-                  iconEl={<CloseIcon className="body1 text-red-700" />}
+                  iconEl={<Cross2Icon className="body1 text-red-700" />}
                 >
                   Remove image
                 </Button>

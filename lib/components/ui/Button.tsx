@@ -24,7 +24,7 @@ const Button = React.forwardRef(function Button(props: Props, innerRef) {
     <button
       type={type}
       onClick={onClick}
-      className={`group relative z-0 flex flex-shrink-0 items-center justify-center gap-2 overflow-hidden rounded-md ${
+      className={`group relative z-0 flex flex-shrink-0 items-center justify-center gap-4 overflow-hidden rounded-md ${
         disabled
           ? "bg-gray-300"
           : color === "error"
@@ -39,7 +39,7 @@ const Button = React.forwardRef(function Button(props: Props, innerRef) {
       <div className="absolute z-10 h-full w-full transition-all duration-200 group-hover:bg-gray-900/10 group-active:bg-gray-900/30" />
       {iconEl}
       <span
-        className={`body1 relative z-20 ${
+        className={`body1 relative z-20 align-middle ${
           color === "error"
             ? "text-red-700"
             : variant === "default"

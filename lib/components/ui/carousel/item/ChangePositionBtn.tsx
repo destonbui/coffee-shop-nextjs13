@@ -4,8 +4,8 @@ import React from "react";
 
 import Tooltip from "@mui/material/Tooltip";
 
-import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import { ChevronLeftIcon, ChevronRightIcon } from "@radix-ui/react-icons";
+
 import { actionUpdateBannerPosition } from "@/app/(admin)/dashboard/(website)/carousel/actions";
 
 interface Props {
@@ -15,9 +15,6 @@ interface Props {
 }
 
 const ChangePositionBtn = ({ id, newPos, direction }: Props) => {
-  const iconProps = {
-    sx: { fontSize: "1.25rem" },
-  };
   return (
     <Tooltip
       title={
@@ -44,8 +41,12 @@ const ChangePositionBtn = ({ id, newPos, direction }: Props) => {
             : "cursor-default text-gray-500"
         }`}
       >
-        {direction === "left" && <ChevronLeftIcon {...iconProps} />}
-        {direction === "right" && <ChevronRightIcon {...iconProps} />}
+        {direction === "left" && (
+          <ChevronLeftIcon className="h-[1rem] w-[1rem]" />
+        )}
+        {direction === "right" && (
+          <ChevronRightIcon className="h-[1rem] w-[1rem]" />
+        )}
       </button>
     </Tooltip>
   );

@@ -2,7 +2,7 @@
 
 import React from "react";
 
-import AddIcon from "@mui/icons-material/Add";
+import { PlusIcon } from "@radix-ui/react-icons";
 
 import Button from "@/lib/components/ui/Button";
 
@@ -15,13 +15,7 @@ const AddBannerButton = (props: Props) => {
   return (
     <Dialog.Root>
       <Dialog.Trigger asChild>
-        <Button
-          iconEl={
-            <AddIcon
-              sx={{ fontSize: "1rem", position: "relative", zIndex: 20 }}
-            />
-          }
-        >
+        <Button iconEl={<PlusIcon className="relative z-20" />}>
           Thêm banner
         </Button>
       </Dialog.Trigger>

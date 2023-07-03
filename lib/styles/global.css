@@ -76,10 +76,6 @@ th {
   @apply px-4 py-2 text-left text-lg text-theme-green-main;
 }
 
-#col-normal {
-  @apply min-w-[200px];
-}
-
 td {
   @apply px-4 py-2 text-base font-normal tracking-[0.5px];
 }

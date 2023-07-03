@@ -24,7 +24,7 @@ const Button = React.forwardRef(function Button(props: Props, innerRef) {
     <button
       type={type}
       onClick={onClick}
-      className={`group relative z-0 flex flex-shrink-0 items-center justify-center gap-4 overflow-hidden rounded-md ${
+      className={`group relative z-0 flex flex-shrink-0 items-center justify-center gap-2 overflow-hidden rounded-md ${
         disabled
           ? "bg-gray-300"
           : color === "error"

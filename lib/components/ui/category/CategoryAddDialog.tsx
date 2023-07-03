@@ -126,7 +126,7 @@ const CategoryAddDialog = React.forwardRef(function CarouselAddDialog(
                     const files = e.target.files;
 
                     if (files && files[0]) {
-                      setSrc(window.URL.createObjectURL(files[0]));
+                      setSrc(window.URL.createObjectURL(files[0] as Blob));
                       setFile(files[0]);
                     }
                   }}
@@ -136,10 +136,9 @@ const CategoryAddDialog = React.forwardRef(function CarouselAddDialog(
             {previewSrc && (
               <div className="flex justify-center">
                 <Image
-                  priority
                   className="mt-1"
                   id="img-preview"
-                  src={previewSrc}
+                  src={previewSrc ? previewSrc : ""}
                   height={100}
                   width={100}
                   alt="User chosen image."

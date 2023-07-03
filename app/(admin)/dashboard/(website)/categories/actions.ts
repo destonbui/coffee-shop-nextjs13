@@ -32,3 +32,96 @@ export async function actionFetchCategories() {
     return { error };
   }
 }
+
+export async function actionDeleteCategory({ id }: { id: string }) {
+  try {
+    const category = await prisma.category.delete({ where: { id: id } });
+
+    return { category };
+  } catch (error) {
+    return { error };
+  }
+}
+
+export async function actionUpdateCategoryInfo(
+  data: {
+    name?: string;
+    imgUrl?: string;
+    desc?: string;
+  },
+  id: string
+) {
+  try {
+    const category = await prisma.category.update({
+      where: {
+        id: id,
+      },
+      data: {
+        ...(data.name ? { name: data.name } : {}),
+        ...(data.desc ? { description: data.desc } : {}),
+        ...(data.imgUrl ? { image_url: data.imgUrl } : {}),
+      },
+    });
+
+    return { category };
+  } catch (error) {
+    return { error };
+  }
+}
+
+export async function actionAddSubcategory({
+  name,
+  categoryName,
+}: {
+  name: string;
+  categoryName: string;
+}) {
+  try {
+    const subcategory = await prisma.subcategory.create({
+      data: {
+        name: name,
+        category_name: categoryName,
+      },
+    });
+
+    return { subcategory };
+  } catch (error) {
+    return { error };
+  }
+}
+
+export async function actionUpdateCategorySubcategory(
+  { newSubcategoryNames }: { newSubcategoryNames: string[] },
+  id: string
+) {
+  try {
+    const category = await prisma.category.update({
+      where: { id: id },
+      data: {
+        subcategories_names: newSubcategoryNames,
+      },
+    });
+
+    return { category };
+  } catch (error) {
+    return { error };
+  }
+}
+
+export async function actionDeleteSubcategory({
+  subcategoryName,
+}: {
+  subcategoryName: string;
+}) {
+  try {
+    const subcategory = await prisma.subcategory.delete({
+      where: {
+        name: subcategoryName,
+      },
+    });
+
+    return { subcategory };
+  } catch (error) {
+    return { error };
+  }
+}

@@ -15,12 +15,12 @@ const CategoriesTableDisplay = ({ categories }: Props) => {
       <table>
         <thead>
           <tr>
-            <th id="col-normal">Image</th>
-            <th id="col-normal">Name</th>
-            <th id="col-normal">Total products</th>
-            <th id="col-normal">Subcategories</th>
-            <th id="col-normal">Description</th>
-            <th id="col-extra"></th>
+            <th className="min-w-[80px]">Image</th>
+            <th className="min-w-[200px]">Name</th>
+            <th className="min-w-[200px]">Total products</th>
+            <th className="min-w-[200px]">Subcategories</th>
+            <th className="min-w-[400px] max-w-[500px]">Description</th>
+            <th className="min-w-[80px]"></th>
           </tr>
         </thead>
         <tbody>
@@ -45,7 +45,7 @@ const CategoriesTableDisplay = ({ categories }: Props) => {
                 <td>
                   <span>
                     {category.subcategories_names[0]
-                      ? category.subcategories_names
+                      ? `[${category.subcategories_names.join(",\n")}]`
                       : "Empty"}
                   </span>
                 </td>
@@ -57,7 +57,7 @@ const CategoriesTableDisplay = ({ categories }: Props) => {
                   </span>
                 </td>
                 <td>
-                  <CategoryEditMenu />
+                  <CategoryEditMenu category={category} />
                 </td>
               </tr>
             );

@@ -21,11 +21,13 @@ type Props = {
 
 const SubcategoryEditDialog = ({ data }: Props) => {
   const [subcategory, setSubcategory] = React.useState<string>("");
+  const [loading, setLoading] = React.useState<boolean>(false);
 
   const closeBtnRef = React.useRef<HTMLButtonElement | null>(null);
   const router = useRouter();
 
   const handleAdd = async (val: string) => {
+    setLoading(true);
     const { subcategory, error } = await actionAddSubcategory({
       name: val,
       categoryName: data.name,
@@ -51,6 +53,7 @@ const SubcategoryEditDialog = ({ data }: Props) => {
     }
 
     setSubcategory("");
+    setLoading(false);
     router.refresh();
   };
 
@@ -118,27 +121,43 @@ const SubcategoryEditDialog = ({ data }: Props) => {
               New Subcategory
             </label>
             <div className="flex gap-2">
-              <input
-                value={subcategory}
-                onChange={(e) => {
-                  setSubcategory(e.target.value);
-                }}
-                onKeyDown={(e) => {
-                  let key = e.key;
+              <div className="relative flex-grow">
+                {/* Loading spinner */}
+                <div className="absolute right-2 top-1/2 h-6 w-6 -translate-y-1/2 overflow-hidden rounded-full ">
+                  <div
+                    className={`relative opacity-0 ${
+                      loading ? "animate-spin opacity-100" : ""
+                    } h-full w-full bg-theme-green-main`}
+                  >
+                    <div className="absolute left-1/2 top-1/2 h-5 w-5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white">
+                      <div className="absolute right-0 top-0 h-5 w-5 translate-x-1/2 translate-y-1/2 bg-white"></div>
+                    </div>
+                  </div>
+                </div>
 
-                  if (key === "Enter") {
-                    if (subcategory !== "") {
-                      handleAdd(subcategory);
+                <input
+                  value={subcategory}
+                  onChange={(e) => {
+                    setSubcategory(e.target.value);
+                  }}
+                  onKeyDown={(e) => {
+                    let key = e.key;
+
+                    if (key === "Enter") {
+                      if (subcategory !== "") {
+                        handleAdd(subcategory);
+                      }
                     }
-                  }
-                }}
-                className="body1 flex-grow rounded-md border-2 border-gray-300 px-2 py-1 outline-none focus:border-theme-green-main"
-                type="text"
-                name="subcategory"
-                id="subcategory"
-                spellCheck={false}
-                placeholder="Enter new subcategory name"
-              />
+                  }}
+                  className="body1 w-full rounded-md border-2 border-gray-300 px-2 py-1 outline-none focus:border-theme-green-main"
+                  type="text"
+                  name="subcategory"
+                  id="subcategory"
+                  spellCheck={false}
+                  placeholder="Enter new subcategory name"
+                />
+              </div>
+
               <Button
                 disabled={subcategory === ""}
                 onClick={(e) => {

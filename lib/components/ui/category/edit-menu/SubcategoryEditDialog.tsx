@@ -142,10 +142,11 @@ const SubcategoryEditDialog = ({ data }: Props) => {
                   }}
                   onKeyDown={(e) => {
                     let key = e.key;
-
-                    if (key === "Enter") {
-                      if (subcategory !== "") {
-                        handleAdd(subcategory);
+                    if (!loading) {
+                      if (key === "Enter") {
+                        if (subcategory !== "") {
+                          handleAdd(subcategory);
+                        }
                       }
                     }
                   }}
@@ -159,7 +160,7 @@ const SubcategoryEditDialog = ({ data }: Props) => {
               </div>
 
               <Button
-                disabled={subcategory === ""}
+                disabled={subcategory === "" || loading}
                 onClick={(e) => {
                   handleAdd(subcategory);
                 }}

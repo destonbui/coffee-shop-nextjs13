@@ -4,10 +4,6 @@ import { Metadata } from "next";
 
 import HeroCarousel from "@/lib/components/section/HeroCarousel";
 
-import carouselImg1 from "@/public/longan-mua-2-tang-1.jpg";
-import carouselImg2 from "@/public/refreshing-longan.jpg";
-import carouselImg3 from "@/public/rewards-banner.jpg";
-import carouselImg4 from "@/public/coconut-caramel.jpg";
 import CategoriesNav from "@/lib/components/section/CategoriesNav";
 
 interface HomeProps {}

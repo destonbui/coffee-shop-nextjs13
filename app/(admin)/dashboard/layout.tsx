@@ -1,10 +1,16 @@
 import AdminSidebar from "@/lib/components/navigation/AdminSidebar";
+import { Metadata } from "next";
 import { getServerSession } from "next-auth";
 import React from "react";
 
 interface Props {
   children: React.ReactNode;
 }
+
+export const metadata: Metadata = {
+  title: "Admin Dashboard",
+  description: "Admin dashboard",
+};
 
 const layout = async ({ children }: Props) => {
   const session = await getServerSession();

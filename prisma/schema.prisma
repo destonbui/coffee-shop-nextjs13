@@ -50,38 +50,38 @@ enum UserRole {
 }
 
 model Banner {
-  id        String @id @default(cuid()) @map("_id")
-  image_url String @unique
-  position Int
+  id          String  @id @default(cuid()) @map("_id")
+  image_url   String  @unique
+  position    Int
   description String
-  href String?
-  active Boolean @default(true)
+  href        String?
+  active      Boolean @default(true)
 
   @@map("banners")
 }
 
 model Category {
-  id String @id @default(cuid()) @map("_id")
-  name String @unique
-  description String?
-  image_url String @unique
-  active Boolean @default(true)
-  products_total Int @default(0)
+  id                  String   @id @default(cuid()) @map("_id")
+  name                String   @unique
+  description         String?
+  image_url           String   @unique
+  active              Boolean  @default(true)
+  products_total      Int      @default(0)
   subcategories_names String[]
 
   subcategories Subcategory[]
-  products Product[]
+  products      Product[]
 
   @@map("categories")
 }
 
 model Subcategory {
-  id String @id @default(cuid()) @map("_id")
-  name String @unique
-  description String?
-  active Boolean @default(true)
-  category_name String
-  products_total Int @default(0)
+  id             String  @id @default(cuid()) @map("_id")
+  name           String  @unique
+  description    String?
+  active         Boolean @default(true)
+  category_name  String
+  products_total Int     @default(0)
 
   category Category @relation(fields: [category_name], references: [name], onDelete: Cascade)
 
@@ -91,16 +91,65 @@ model Subcategory {
 }
 
 model Product {
-  id String @id @default(cuid()) @map("_id")
-  category_name String
+  id               String   @id @default(cuid()) @map("_id")
+  category_name    String
   subcategory_name String?
-  active Boolean @default(true)
-  name String @unique
-  description String
+  active           Boolean  @default(true)
+  image_url     String
+  name             String   @unique
+  description      String?
+  price            Int
+  upsize_price  Int
+  discount         Int?
+  tags             String[]
+  options OptionOfProduct[]
+  toppings ToppingOfProduct[]
 
-
-  category Category @relation(fields: [category_name], references: [name], onDelete: Cascade)
+  category    Category     @relation(fields: [category_name], references: [name], onDelete: Cascade)
   subcategory Subcategory? @relation(fields: [subcategory_name], references: [name], onDelete: Cascade)
 
+  
   @@map("products")
+}
+
+model Topping {
+  id    String @id @default(cuid()) @map("_id")
+  name  String @unique
+  price Int
+
+  products ToppingOfProduct[]
+}
+
+model Option {
+  id        String      @id @default(cuid()) @map("_id")
+  name      String      @unique
+  value     OptionValue @default(NORMAL)
+
+  products OptionOfProduct[]
+}
+
+enum OptionValue {
+  LESS
+  NORMAL
+  MORE
+}
+
+model OptionOfProduct {
+  id    String @id @default(cuid()) @map("_id")
+  
+  productId String 
+  product Product @relation(fields: [productId], references: [id])
+
+  optionId String 
+  option Option @relation(fields: [optionId], references: [id])
+}
+
+model ToppingOfProduct {
+  id    String @id @default(cuid()) @map("_id")
+
+  productId String
+  product Product @relation(fields: [productId], references: [id])
+
+  toppingId String
+  topping Topping @relation(fields: [toppingId], references: [id])
 }

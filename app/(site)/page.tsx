@@ -24,7 +24,9 @@ async function fetchBanners() {
     throw new Error("Fetch banners failed");
   }
 
-  return res.json();
+  const data = await res.json();
+
+  return data;
 }
 
 async function fetchCategories() {
@@ -36,7 +38,9 @@ async function fetchCategories() {
     throw new Error("Fetch categories failed");
   }
 
-  return res.json();
+  const data = await res.json();
+
+  return data;
 }
 
 const Home = async ({}: HomeProps) => {

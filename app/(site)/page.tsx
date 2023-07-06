@@ -29,14 +29,10 @@ async function fetchData() {
     fetchCategories,
   ]);
 
-  if (!bannersData.ok || !categoriesData.ok) {
-    throw new Error("Fetch data failed");
-  } else {
-    const banners = await bannersData.json();
-    const categories = await categoriesData.json();
+  const banners = await bannersData.json();
+  const categories = await categoriesData.json();
 
-    return { banners, categories };
-  }
+  return { banners, categories };
 }
 
 const Home = async ({}: HomeProps) => {

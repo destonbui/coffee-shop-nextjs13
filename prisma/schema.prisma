@@ -118,6 +118,8 @@ model Topping {
   price Int
 
   products ToppingOfProduct[]
+
+  @@map("toppings")
 }
 
 model Option {
@@ -126,6 +128,8 @@ model Option {
   value     OptionValue @default(NORMAL)
 
   products OptionOfProduct[]
+
+  @@map("options")
 }
 
 enum OptionValue {

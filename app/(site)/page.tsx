@@ -5,6 +5,7 @@ import { Metadata } from "next";
 import HeroCarousel from "@/lib/components/section/HeroCarousel";
 
 import CategoriesNav from "@/lib/components/section/CategoriesNav";
+import { Category } from "@prisma/client";
 
 interface HomeProps {}
 
@@ -28,14 +29,34 @@ async function fetchBanners() {
   return res.json();
 }
 
+async function fetchCategories() {
+  const endpoint = process.env.HOST + "/api/categories";
+
+  const res = await fetch(endpoint, {
+    next: { revalidate: 60 },
+  });
+
+  if (!res.ok) {
+    throw new Error("Fetch categories failed");
+  }
+
+  return res.json();
+}
+
 const Home = async ({}: HomeProps) => {
-  const banners = await fetchBanners();
+  const bannersData = fetchBanners();
+  const categoriesData: Promise<Category[]> = fetchCategories();
+
+  const [banners, categories] = await Promise.all([
+    bannersData,
+    categoriesData,
+  ]);
 
   return (
     <>
-      <HeroCarousel items={banners} />
+      {banners && <HeroCarousel items={banners} />}
 
-      <CategoriesNav />
+      {categories && <CategoriesNav categories={categories} />}
     </>
   );
 };

@@ -1,4 +1,4 @@
-import prisma from "@/lib/prisma";
+import prisma from "./index";
 
 export async function getCategories() {
   try {

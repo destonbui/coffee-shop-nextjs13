@@ -41,6 +41,7 @@
   "devDependencies": {
     "encoding": "^0.1.13",
     "prettier": "^2.8.8",
-    "prettier-plugin-tailwindcss": "^0.3.0"
+    "prettier-plugin-tailwindcss": "^0.3.0",
+    "request": "^2.88.2"
   }
 }

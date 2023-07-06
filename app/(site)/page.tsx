@@ -15,37 +15,32 @@ export const metadata: Metadata = {
     "Trải qua hơn 50 năm chắt chiu tinh hoa từ những búp trà xanh và hạt cà phê thượng hạng cùng mong muốn mang lại cho khách hàng những trải nghiệm giá trị nhất khi thưởng thức.",
 };
 
-async function fetchBanners() {
-  const res = await fetch(process.env.HOST + "/api/banners", {
+async function fetchData() {
+  const fetchBanners = fetch(process.env.HOST + "/api/banners", {
     next: { revalidate: 60 },
   });
 
-  if (!res.ok) {
-    throw new Error("Fetch banners failed");
-  }
-
-  const data = await res.json();
-
-  return data;
-}
-
-async function fetchCategories() {
-  const res = await fetch(process.env.HOST + "/api/categories", {
+  const fetchCategories = fetch(process.env.HOST + "/api/categories", {
     next: { revalidate: 60 },
   });
 
-  if (!res.ok) {
-    throw new Error("Fetch categories failed");
+  const [bannersData, categoriesData] = await Promise.all([
+    fetchBanners,
+    fetchCategories,
+  ]);
+
+  if (!bannersData.ok || !categoriesData.ok) {
+    throw new Error("Fetch data failed");
+  } else {
+    const banners = await bannersData.json();
+    const categories = await categoriesData.json();
+
+    return { banners, categories };
   }
-
-  const data = await res.json();
-
-  return data;
 }
 
 const Home = async ({}: HomeProps) => {
-  const banners = await fetchBanners();
-  const categories = await fetchCategories();
+  const { banners, categories } = await fetchData();
 
   return (
     <>

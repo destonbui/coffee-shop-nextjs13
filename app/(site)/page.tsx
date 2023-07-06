@@ -43,8 +43,13 @@ async function fetchCategories() {
 }
 
 const Home = async ({}: HomeProps) => {
-  const banners = await fetchBanners();
-  const categories = await fetchCategories();
+  const bannersData = fetchBanners();
+  const categoriesData = fetchCategories();
+
+  const [banners, categories] = await Promise.all([
+    bannersData,
+    categoriesData,
+  ]);
 
   return (
     <>

@@ -16,9 +16,7 @@ export const metadata: Metadata = {
 };
 
 async function fetchBanners() {
-  const endpoint = process.env.HOST + "/api/banners";
-
-  const res = await fetch(endpoint, {
+  const res = await fetch(process.env.HOST + "/api/banners", {
     next: { revalidate: 60 },
   });
 
@@ -30,9 +28,7 @@ async function fetchBanners() {
 }
 
 async function fetchCategories() {
-  const endpoint = process.env.HOST + "/api/categories";
-
-  const res = await fetch(endpoint, {
+  const res = await fetch(process.env.HOST + "/api/categories", {
     next: { revalidate: 60 },
   });
 

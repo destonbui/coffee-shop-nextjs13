@@ -9,6 +9,10 @@ import Button from "@/lib/components/ui/Button";
 import { Cross2Icon } from "@radix-ui/react-icons";
 
 import { useRouter } from "next/navigation";
+import {
+  actionAddOptionReference,
+  actionAddOptionTopping,
+} from "@/app/(admin)/dashboard/(website)/product-options/actions";
 
 interface Props {}
 
@@ -19,16 +23,49 @@ const OptionAddDialog = React.forwardRef(function CarouselAddDialog(
   const [refName, setRefName] = React.useState<string>("");
   const [toppingName, setToppingName] = React.useState<string>("");
   const [toppingPrice, setToppingPrice] = React.useState<number>(0);
+  const [adding, setAdding] = React.useState<boolean>(false);
 
   const closeBtnRef = React.useRef<HTMLButtonElement>(null);
 
   const router = useRouter();
 
-  const handleSubmitRef: React.FormEventHandler<HTMLFormElement> = (e) => {
+  const handleSubmitRef: React.FormEventHandler<HTMLFormElement> = async (
+    e
+  ) => {
     e.preventDefault();
+
+    setAdding(true);
+
+    const { reference, error } = await actionAddOptionReference({
+      name: refName,
+    });
+
+    if (error) {
+      throw new Error("Add option reference failed");
+    }
+
+    router.refresh();
+    closeBtnRef.current?.click();
   };
-  const handleSubmitTopping: React.FormEventHandler<HTMLFormElement> = (e) => {
+  const handleSubmitTopping: React.FormEventHandler<HTMLFormElement> = async (
+    e
+  ) => {
     e.preventDefault();
+
+    const { topping, error } = await actionAddOptionTopping({
+      name: toppingName,
+      price: toppingPrice,
+    });
+
+    if (error) {
+      throw new Error("Add option topping failed");
+    }
+
+    if (topping) {
+      setAdding(false);
+      router.refresh();
+      closeBtnRef.current?.click();
+    }
   };
 
   return (
@@ -96,8 +133,8 @@ const OptionAddDialog = React.forwardRef(function CarouselAddDialog(
               />
             </div>
 
-            <Button disabled={refName === ""} type="submit">
-              ADD
+            <Button disabled={refName === "" || adding} type="submit">
+              {adding ? "ADDING" : "ADD"}
             </Button>
           </form>
         </Tabs.Content>
@@ -160,10 +197,10 @@ const OptionAddDialog = React.forwardRef(function CarouselAddDialog(
             </div>
 
             <Button
-              disabled={toppingName === "" || toppingPrice === 0}
+              disabled={toppingName === "" || toppingPrice === 0 || adding}
               type="submit"
             >
-              ADD
+              {adding ? "ADDING" : "ADD"}
             </Button>
           </form>
         </Tabs.Content>

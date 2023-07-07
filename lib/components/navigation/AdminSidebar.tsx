@@ -12,6 +12,7 @@ import CategoryIcon from "@mui/icons-material/Category";
 import EmojiFoodBeverageIcon from "@mui/icons-material/EmojiFoodBeverage";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import DiscountIcon from "@mui/icons-material/Discount";
+import TuneIcon from "@mui/icons-material/Tune";
 
 import AdminNavItemWrapper from "./AdminNavItemWrapper";
 import { signOut } from "next-auth/react";
@@ -76,6 +77,14 @@ const AdminSidebar = ({ session }: Props) => {
       {/* Products categories */}
       <AdminNavItemWrapper title="Categories" href="/dashboard/categories">
         <CategoryIcon {...muiIconProps} />
+      </AdminNavItemWrapper>
+
+      {/* Drinks options */}
+      <AdminNavItemWrapper
+        title="Product Options"
+        href="/dashboard/product-options"
+      >
+        <TuneIcon {...muiIconProps} />
       </AdminNavItemWrapper>
 
       {/* Products */}

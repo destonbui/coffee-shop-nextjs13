@@ -1,16 +1,17 @@
 "use server";
 
 import prisma from "@/lib/prisma";
+import { OptionValue } from "@prisma/client";
 
-export async function actionAddOptionReference({ name }: { name: string }) {
+export async function actionAddOptionPreference({ name }: { name: string }) {
   try {
-    const reference = await prisma.option.create({
+    const preference = await prisma.option.create({
       data: {
         name: name,
       },
     });
 
-    return { reference };
+    return { preference };
   } catch (error) {
     return { error };
   }
@@ -37,11 +38,11 @@ export async function actionAddOptionTopping({
   }
 }
 
-export async function actionFetchReferences() {
+export async function actionFetchPreferences() {
   try {
-    const references = await prisma.option.findMany();
+    const preferences = await prisma.option.findMany();
 
-    return { references };
+    return { preferences };
   } catch (error) {
     return { error };
   }
@@ -49,9 +50,41 @@ export async function actionFetchReferences() {
 
 export async function actionFetchToppings() {
   try {
-    const toppings = await prisma.option.findMany();
+    const toppings = await prisma.topping.findMany();
 
     return { toppings };
+  } catch (error) {
+    return { error };
+  }
+}
+
+export async function actionUpdatePreferenceValue(
+  {
+    newVal,
+  }: {
+    newVal: "NONE" | "LESS" | "NORMAL" | "MORE";
+  },
+  id: string
+) {
+  try {
+    const preference = await prisma.option.update({
+      where: { id: id },
+      data: {
+        value: newVal,
+      },
+    });
+
+    return { preference };
+  } catch (error) {
+    return { error };
+  }
+}
+
+export async function actionDeletePreference({ id }: { id: string }) {
+  try {
+    const preference = await prisma.option.delete({ where: { id: id } });
+
+    return { preference };
   } catch (error) {
     return { error };
   }

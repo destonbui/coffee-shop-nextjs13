@@ -10,7 +10,7 @@ import { Cross2Icon } from "@radix-ui/react-icons";
 
 import { useRouter } from "next/navigation";
 import {
-  actionAddOptionReference,
+  actionAddOptionPreference,
   actionAddOptionTopping,
 } from "@/app/(admin)/dashboard/(website)/product-options/actions";
 
@@ -36,7 +36,7 @@ const OptionAddDialog = React.forwardRef(function CarouselAddDialog(
 
     setAdding(true);
 
-    const { reference, error } = await actionAddOptionReference({
+    const { preference, error } = await actionAddOptionPreference({
       name: refName,
     });
 

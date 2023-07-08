@@ -133,6 +133,7 @@ model Option {
 }
 
 enum OptionValue {
+  NONE
   LESS
   NORMAL
   MORE

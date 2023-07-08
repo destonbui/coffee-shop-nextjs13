@@ -7,6 +7,7 @@ import { Cross2Icon } from "@radix-ui/react-icons";
 import DeletePreferenceButton from "@/lib/components/ui/options/DeletePreferenceButton";
 import DeleteToppingButton from "@/lib/components/ui/options/DeleteToppingButton";
 import EditToppingPriceButton from "@/lib/components/ui/options/EditToppingPriceButton";
+import { error } from "console";
 
 interface Props {}
 
@@ -28,8 +29,12 @@ const Products = async (props: Props) => {
   const { preferences, error: preferenceError } = referencesData;
   const { toppings, error: toppingError } = toppingsData;
 
-  if (preferenceError || toppingError) {
-    throw new Error("Fetch options data failed");
+  if (preferences && preferenceError) {
+    throw new Error("Fetch preferences failed");
+  }
+
+  if (toppings && toppingError) {
+    throw new Error("Fetch toppings failed");
   }
 
   return (

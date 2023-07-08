@@ -166,7 +166,7 @@ const OptionAddDialog = React.forwardRef(function CarouselAddDialog(
                   type="text"
                   id="opt-top-name"
                   name="opt-top-name"
-                  placeholder="Enter reference option name"
+                  placeholder="Enter topping option name"
                   required
                 />
               </div>
@@ -189,7 +189,7 @@ const OptionAddDialog = React.forwardRef(function CarouselAddDialog(
                   type="number"
                   id="opt-top-price"
                   name="opt-top-price"
-                  placeholder="Enter reference option name"
+                  placeholder="Enter topping option price"
                   step={1000}
                   required
                 />

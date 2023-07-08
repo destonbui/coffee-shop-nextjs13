@@ -89,3 +89,31 @@ export async function actionDeletePreference({ id }: { id: string }) {
     return { error };
   }
 }
+
+export async function actionDeleteTopping({ id }: { id: string }) {
+  try {
+    const topping = await prisma.topping.delete({ where: { id: id } });
+
+    return { topping };
+  } catch (error) {
+    return { error };
+  }
+}
+
+export async function actionUpdateToppingPrice(
+  { newPrice }: { newPrice: number },
+  id: string
+) {
+  try {
+    const topping = await prisma.topping.update({
+      where: { id: id },
+      data: {
+        price: newPrice,
+      },
+    });
+
+    return { topping };
+  } catch (error) {
+    return { error };
+  }
+}

@@ -3,11 +3,10 @@ import React from "react";
 import AddOptionButton from "@/lib/components/ui/options/AddOptionButton";
 import { actionFetchPreferences, actionFetchToppings } from "./actions";
 import PreferenceValue from "@/lib/components/ui/options/PreferenceValue";
-import { Cross2Icon } from "@radix-ui/react-icons";
+
 import DeletePreferenceButton from "@/lib/components/ui/options/DeletePreferenceButton";
 import DeleteToppingButton from "@/lib/components/ui/options/DeleteToppingButton";
 import EditToppingPriceButton from "@/lib/components/ui/options/EditToppingPriceButton";
-import { error } from "console";
 
 interface Props {}
 

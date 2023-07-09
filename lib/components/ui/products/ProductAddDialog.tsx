@@ -174,7 +174,7 @@ const ProductAddDialog = React.forwardRef(function CarouselAddDialog(
 
           {/* Name */}
           <div className="flex flex-col">
-            <label htmlFor="img-desc" className="h6 mb-1 text-gray-800">
+            <label htmlFor="product-name" className="h6 mb-1 text-gray-800">
               Name*
             </label>
             <input
@@ -184,8 +184,8 @@ const ProductAddDialog = React.forwardRef(function CarouselAddDialog(
               }}
               className="body1 rounded-md border-2 border-gray-300 px-2 py-1 outline-none focus:border-theme-green-main"
               type="text"
-              id="img-desc"
-              name="img-desc"
+              id="product-name"
+              name="product-name"
               placeholder="Enter product name"
               required
             />
@@ -193,19 +193,58 @@ const ProductAddDialog = React.forwardRef(function CarouselAddDialog(
 
           {/* Desc */}
           <div className="flex flex-col">
-            <label htmlFor="img-desc" className="h6 mb-1 text-gray-800">
-              Description*
+            <label htmlFor="product-desc" className="h6 mb-1 text-gray-800">
+              Description
             </label>
             <input
-              value={name}
-              onChange={(e) => {
-                setName(e.target.value);
-              }}
+              // value={name}
+              // onChange={(e) => {
+              //   setName(e.target.value);
+              // }}
               className="body1 rounded-md border-2 border-gray-300 px-2 py-1 outline-none focus:border-theme-green-main"
               type="text"
-              id="img-desc"
-              name="img-desc"
+              id="product-desc"
+              name="product-desc"
               placeholder="Enter product description"
+            />
+          </div>
+
+          {/* price */}
+          <div className="flex flex-col">
+            <label htmlFor="product-price" className="h6 mb-1 text-gray-800">
+              Price*
+            </label>
+            <input
+              // value={name}
+              // onChange={(e) => {
+              //   setName(e.target.value);
+              // }}
+              className="body1 rounded-md border-2 border-gray-300 px-2 py-1 outline-none focus:border-theme-green-main"
+              type="number"
+              step={1000}
+              id="product-price"
+              name="product-price"
+              placeholder="Enter product price"
+              required
+            />
+          </div>
+
+          {/* Upsize */}
+          <div className="flex flex-col">
+            <label htmlFor="product-upsize" className="h6 mb-1 text-gray-800">
+              Upsize price*
+            </label>
+            <input
+              // value={name}
+              // onChange={(e) => {
+              //   setName(e.target.value);
+              // }}
+              className="body1 rounded-md border-2 border-gray-300 px-2 py-1 outline-none focus:border-theme-green-main"
+              type="number"
+              step={1000}
+              id="product-upsize"
+              name="product-upsize"
+              placeholder="Enter product price"
               required
             />
           </div>

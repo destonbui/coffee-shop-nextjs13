@@ -99,7 +99,7 @@ model Product {
   name             String   @unique
   description      String?
   price            Int
-  upsize_price  Int
+  upsize_price  Int?
   discount         Int?
   tags             String[]
   options OptionOfProduct[]

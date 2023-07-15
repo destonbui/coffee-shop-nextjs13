@@ -9,7 +9,11 @@ import { Cross2Icon } from "@radix-ui/react-icons";
 
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { actionAddCategory } from "@/app/(admin)/dashboard/(website)/categories/actions";
+
+import { actionAddProduct } from "@/app/(admin)/dashboard/(website)/products/actions";
+
+import CategorySelect from "./CategorySelect";
+import SubcategorySelect from "./SubcategorySelect";
 
 interface Props {}
 
@@ -32,6 +36,15 @@ const ProductAddDialog = React.forwardRef(function CarouselAddDialog(
   const [previewSrc, setSrc] = React.useState<null | string>(null);
   const [file, setFile] = React.useState<null | Blob>(null);
   const [name, setName] = React.useState<string>("");
+  const [desc, setDesc] = React.useState<string>("");
+  const [price, setPrice] = React.useState<number>(0);
+  const [upsizePrice, setUpsizePrice] = React.useState<number>(0);
+  const [tagInput, setTagInput] = React.useState<string>("");
+  const [tags, setTags] = React.useState<string[] | undefined>();
+
+  const [category, setCategory] = React.useState<string | undefined>();
+  const [subcategory, setSubcategory] = React.useState<string | undefined>();
+
   const [btnState, setBtnState] = React.useState<
     "ADD" | "UPLOADING" | "UPLOADED"
   >("ADD");
@@ -40,51 +53,75 @@ const ProductAddDialog = React.forwardRef(function CarouselAddDialog(
 
   const router = useRouter();
 
+  const handleAddTag = () => {
+    if (tagInput !== "") {
+      const newTag = tagInput.toUpperCase().replace(/^a-zA-Z0-9]/g, "");
+
+      if (!tags) {
+        setTags([newTag]);
+        setTagInput("");
+      } else {
+        if (!tags.includes(newTag)) {
+          setTags((prev) => [...(prev ? prev : []), newTag]);
+          setTagInput("");
+        } else {
+          setTagInput("");
+        }
+      }
+    }
+  };
+
+  const canSubmit =
+    name !== "" && file && price !== 0 && upsizePrice !== 0 && category;
+
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
-    // setBtnState("UPLOADING");
+    setBtnState("UPLOADING");
 
-    // const formData = new FormData();
+    const formData = new FormData();
 
-    // if (file) {
-    //   formData.append("file", file);
-    // }
+    if (file) {
+      formData.append("file", file);
+    }
 
-    // const result = await fetch("/api/image/upload", {
-    //   method: "POST",
-    //   body: formData,
-    // });
+    const result = await fetch("/api/image/upload", {
+      method: "POST",
+      body: formData,
+    });
 
-    // if (!result.ok) {
-    //   throw new Error(
-    //     "Something went wrong when calling upload api, please check your console."
-    //   );
-    // } else {
-    //   const data: { success: boolean; error?: string; filepath?: string } =
-    //     await result.json();
+    if (!result.ok) {
+      throw new Error(
+        "Something went wrong when calling upload api, please check your console."
+      );
+    } else {
+      const data: { success: boolean; error?: string; filepath?: string } =
+        await result.json();
 
-    //   if (!data.success) {
-    //     throw new Error(data.error);
-    //   }
+      if (!data.success) {
+        throw new Error(data.error);
+      }
 
-    //   if (data.filepath) {
-    //     const { category, error } = await actionAddCategory({
-    //       filePath: data.filepath,
-    //       name: name,
-    //     });
-
-    //     if (error) {
-    //       throw new Error("Add category failed!");
-    //     }
-
-    //     if (category) {
-    //       setBtnState("UPLOADED");
-
-    //       closeBtnRef.current?.click();
-    //       router.refresh();
-    //     }
-    //   }
-    // }
+      if (data.filepath) {
+        const { product, error } = await actionAddProduct({
+          img_url: data.filepath,
+          name,
+          desc,
+          price,
+          upsize_price: upsizePrice,
+          tags,
+          category_name: category ? category : "ERROR",
+          subcategory_name: subcategory,
+        });
+        if (error) {
+          throw new Error("Add category failed!");
+        }
+        if (product) {
+          setBtnState("UPLOADED");
+          closeBtnRef.current?.click();
+          router.refresh();
+        }
+      }
+    }
   };
 
   return (
@@ -102,6 +139,11 @@ const ProductAddDialog = React.forwardRef(function CarouselAddDialog(
           </button>
         </Dialog.Close>
       </div>
+
+      <p className="mt-2 text-gray-400">
+        Tạo sản phẩm mới với đầy đủ thông tin sản phẩm. Các user preferences
+        hoặc topping có thể được thêm vào sau khi tạo sản phẩm.
+      </p>
 
       <form method="post" encType="multipart/form-data" onSubmit={handleSubmit}>
         {/* Input */}
@@ -139,8 +181,8 @@ const ProductAddDialog = React.forwardRef(function CarouselAddDialog(
                   className="mt-1"
                   id="img-preview"
                   src={previewSrc ? previewSrc : ""}
-                  height={100}
-                  width={100}
+                  height={250}
+                  width={250}
                   alt="User chosen image."
                 />
               </div>
@@ -191,16 +233,45 @@ const ProductAddDialog = React.forwardRef(function CarouselAddDialog(
             />
           </div>
 
+          {/* Category */}
+          <div className=" flex flex-col">
+            <label htmlFor="product-category" className="h6 mb-1 text-gray-800">
+              Category*
+            </label>
+
+            <CategorySelect
+              category={category}
+              handleChangeCategory={(value) => {
+                setCategory(value);
+              }}
+            />
+          </div>
+
+          {/* Subcategory */}
+          <div className="flex flex-col">
+            <label htmlFor="product-category" className="h6 mb-1 text-gray-800">
+              Subcategory
+            </label>
+
+            <SubcategorySelect
+              category={category}
+              subcategory={subcategory}
+              handleChangeSubcategory={(value) => {
+                setSubcategory(value);
+              }}
+            />
+          </div>
+
           {/* Desc */}
           <div className="flex flex-col">
             <label htmlFor="product-desc" className="h6 mb-1 text-gray-800">
               Description
             </label>
             <input
-              // value={name}
-              // onChange={(e) => {
-              //   setName(e.target.value);
-              // }}
+              value={desc}
+              onChange={(e) => {
+                setDesc(e.target.value);
+              }}
               className="body1 rounded-md border-2 border-gray-300 px-2 py-1 outline-none focus:border-theme-green-main"
               type="text"
               id="product-desc"
@@ -215,10 +286,12 @@ const ProductAddDialog = React.forwardRef(function CarouselAddDialog(
               Price*
             </label>
             <input
-              // value={name}
-              // onChange={(e) => {
-              //   setName(e.target.value);
-              // }}
+              value={price}
+              onChange={(e) => {
+                let newVal =
+                  Number(e.target.value) < 0 ? 0 : Number(e.target.value);
+                setPrice(newVal);
+              }}
               className="body1 rounded-md border-2 border-gray-300 px-2 py-1 outline-none focus:border-theme-green-main"
               type="number"
               step={1000}
@@ -235,29 +308,81 @@ const ProductAddDialog = React.forwardRef(function CarouselAddDialog(
               Upsize price*
             </label>
             <input
-              // value={name}
-              // onChange={(e) => {
-              //   setName(e.target.value);
-              // }}
+              value={upsizePrice}
+              onChange={(e) => {
+                let newVal =
+                  Number(e.target.value) < 0 ? 0 : Number(e.target.value);
+                setUpsizePrice(newVal);
+              }}
               className="body1 rounded-md border-2 border-gray-300 px-2 py-1 outline-none focus:border-theme-green-main"
               type="number"
               step={1000}
               id="product-upsize"
               name="product-upsize"
-              placeholder="Enter product price"
+              placeholder="Enter product upsize price"
               required
             />
           </div>
 
+          {/* Tags */}
+          <div className="flex flex-col">
+            <label htmlFor="product-upsize" className="h6 mb-1 text-gray-800">
+              Tags
+            </label>
+            <div className="flex gap-2">
+              <input
+                value={tagInput}
+                onChange={(e) => {
+                  setTagInput(e.target.value);
+                }}
+                className="body1 flex-grow rounded-md border-2 border-gray-300 px-2 py-1 outline-none focus:border-theme-green-main"
+                type="text"
+                id="product-upsize"
+                name="product-upsize"
+                placeholder="Enter tags. Ex: new / featured"
+              />
+              <Button
+                onClick={() => {
+                  handleAddTag();
+                }}
+              >
+                Add tag
+              </Button>
+            </div>
+            <div className="mt-2 flex gap-2">
+              {tags &&
+                tags.map((tag, i) => {
+                  return (
+                    <div
+                      className="flex items-center gap-1 rounded-full border border-theme-green-main px-4 text-gray-700"
+                      key={tag}
+                    >
+                      <span>{tag}</span>
+                      <button
+                        onClick={() => {
+                          setTags((prev) => {
+                            if (prev) {
+                              return prev.filter((currentTag) => {
+                                return tag !== currentTag;
+                              });
+                            }
+                          });
+                        }}
+                        className="text-red-700"
+                      >
+                        <Cross2Icon />
+                      </button>
+                    </div>
+                  );
+                })}
+            </div>
+          </div>
+
           {/* Submit */}
           <div className="flex flex-col">
-            <button
-              disabled={btnState !== "ADD"}
-              type="submit"
-              className="body1 rounded-md bg-theme-green-main px-2 py-1 text-white shadow hover:shadow-md hover:brightness-90"
-            >
+            <Button disabled={!canSubmit} type="submit">
               {btnState}
-            </button>
+            </Button>
           </div>
         </div>
       </form>

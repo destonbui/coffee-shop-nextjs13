@@ -29,7 +29,7 @@ function formatBytes(bytes: number, decimals = 2) {
   return `${parseFloat((bytes / Math.pow(k, i)).toFixed(dm))} ${sizes[i]}`;
 }
 
-const ProductAddDialog = React.forwardRef(function CarouselAddDialog(
+const ProductAddDialog = React.forwardRef(function ProductAddDialog(
   props: Props,
   refs
 ) {

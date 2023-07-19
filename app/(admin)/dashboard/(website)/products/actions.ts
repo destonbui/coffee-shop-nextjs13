@@ -1,7 +1,13 @@
 "use server";
 
 import prisma from "@/lib/prisma";
-import { getProducts, getProductsByCategory } from "@/lib/prisma/products";
+import { getCategories } from "@/lib/prisma/categories";
+import {
+  ProductUpdateData,
+  getProducts,
+  getProductsByCategory,
+  updateProduct,
+} from "@/lib/prisma/products";
 
 type AddProductData = {
   img_url: string;
@@ -45,13 +51,12 @@ export async function actionAddProduct({
 }
 
 export async function actionFetchCategories() {
-  try {
-    const categories = await prisma.category.findMany();
+  const { categories, error } = await getCategories();
 
-    return { categories };
-  } catch (error) {
-    return { error };
+  if (error) {
+    throw new Error("Fetch categories failed");
   }
+  return { categories };
 }
 
 export async function actionFetchSubcategories({
@@ -94,4 +99,14 @@ export async function actionFetchProducts() {
   }
 
   return { products };
+}
+
+export async function actionUpdateProduct(data: ProductUpdateData, id: string) {
+  const { product, error } = await updateProduct(data, id);
+
+  if (error) {
+    throw new Error("Update product failed");
+  }
+
+  return { product };
 }

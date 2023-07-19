@@ -143,10 +143,10 @@ model OptionOfProduct {
   id    String @id @default(cuid()) @map("_id")
   
   productId String 
-  product Product @relation(fields: [productId], references: [id])
+  product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
 
   optionId String 
-  option Option @relation(fields: [optionId], references: [id])
+  option Option @relation(fields: [optionId], references: [id], onDelete: Cascade)
 }
 
 model ToppingOfProduct {

@@ -20,14 +20,11 @@ const CategorySelect = ({ category, handleChangeCategory }: Props) => {
 
   React.useEffect(() => {
     async function fetchCategories() {
-      const { categories: categoriesFromDB, error } =
-        await actionFetchCategories();
+      const { categories: categoriesFromDB } = await actionFetchCategories();
 
-      if (!categoriesFromDB || error) {
-        throw new Error("Fetch categories failed");
+      if (categoriesFromDB) {
+        setCategories(categoriesFromDB);
       }
-
-      setCategories(categoriesFromDB);
     }
 
     fetchCategories();

@@ -72,3 +72,69 @@ export async function updateProduct(data: ProductUpdateData, id: string) {
     return { error };
   }
 }
+
+export type ConnectPreferencesProps = {
+  productId: string;
+  preferenceIds: string[];
+};
+export async function connectPreferences({
+  productId,
+  preferenceIds,
+}: ConnectPreferencesProps) {
+  try {
+    const product = await prisma.product.update({
+      where: { id: productId },
+      data: {
+        options: {
+          createMany: {
+            data: preferenceIds.map((id) => {
+              return { optionId: id };
+            }),
+          },
+        },
+      },
+    });
+
+    return { product };
+  } catch (error) {
+    return { error };
+  }
+}
+
+export type ConnectToppingsProps = {
+  productId: string;
+  toppingIds: string[];
+};
+export async function connectToppings({
+  productId,
+  toppingIds,
+}: ConnectToppingsProps) {
+  try {
+    const product = await prisma.product.update({
+      where: { id: productId },
+      data: {
+        toppings: {
+          createMany: {
+            data: toppingIds.map((id) => {
+              return { toppingId: id };
+            }),
+          },
+        },
+      },
+    });
+
+    return { product };
+  } catch (error) {
+    return { error };
+  }
+}
+
+export async function deleteProduct({ productId }: { productId: string }) {
+  try {
+    const product = await prisma.product.delete({ where: { id: productId } });
+
+    return { product };
+  } catch (error) {
+    return { error };
+  }
+}

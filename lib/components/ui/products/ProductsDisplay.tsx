@@ -12,8 +12,16 @@ import React from "react";
 import Image from "next/image";
 import { toVND } from "@/lib/utils/numberToCurrency";
 
-import { Cross1Icon, PlusIcon } from "@radix-ui/react-icons";
+import { Cross1Icon, Cross2Icon, PlusIcon } from "@radix-ui/react-icons";
 import ProductEditButton from "./ProductEditButton";
+import AddPreferenceButton from "./AddPreferenceButton";
+import AddToppingButton from "./AddToppingButton";
+import { useRouter } from "next/navigation";
+import {
+  actionDeletePreference,
+  actionDeleteProduct,
+  actionDeleteTopping,
+} from "@/app/(admin)/dashboard/(website)/products/actions";
 
 type Props = {
   productsFromDb: (Product & {
@@ -44,6 +52,8 @@ const ProductsDisplay = ({
     })[]
   >(productsFromDb);
 
+  const router = useRouter();
+
   React.useEffect(() => {
     if (currentCategory === "All") {
       setProducts(productsFromDb);
@@ -64,7 +74,44 @@ const ProductsDisplay = ({
     }
   }, [currentCategory, currentSubcategory, productsFromDb]);
 
-  console.log(productsFromDb);
+  const handleDeleteTopping = async ({
+    productId,
+    toppingRefId,
+  }: {
+    productId: string;
+    toppingRefId: string;
+  }) => {
+    const { topping } = await actionDeleteTopping({ productId, toppingRefId });
+
+    if (topping) {
+      router.refresh();
+    }
+  };
+
+  const handleDeletePreference = async ({
+    productId,
+    preferenceRefId,
+  }: {
+    productId: string;
+    preferenceRefId: string;
+  }) => {
+    const { preference } = await actionDeletePreference({
+      productId,
+      preferenceRefId,
+    });
+
+    if (preference) {
+      router.refresh();
+    }
+  };
+
+  const handleDeleteProduct = async ({ productId }: { productId: string }) => {
+    const { product } = await actionDeleteProduct({ productId });
+
+    if (product) {
+      router.refresh();
+    }
+  };
 
   return (
     <div className="flex flex-wrap gap-4">
@@ -93,7 +140,12 @@ const ProductsDisplay = ({
               )}
 
               <div className="flex-grow" />
-              <button className="relative rounded-full text-red-700">
+              <button
+                onClick={() => {
+                  handleDeleteProduct({ productId: product.id });
+                }}
+                className="relative rounded-full text-red-700"
+              >
                 <Cross1Icon />
               </button>
             </div>
@@ -155,7 +207,7 @@ const ProductsDisplay = ({
 
             <hr />
 
-            <div className="flex min-h-[100px] px-4 py-2">
+            <div className="flex h-[100px] overflow-auto px-4 py-2">
               {/*  */}
               <div className="flex-1">
                 <div className="flex items-center gap-2">
@@ -163,14 +215,30 @@ const ProductsDisplay = ({
                     Preferences
                   </p>
                   {/* Add preference button */}
-                  <button className="rounded-full bg-gray-100 p-1 text-theme-green-main transition-all duration-200 ease-in-out hover:bg-gray-200 hover:shadow">
-                    <PlusIcon className="scale-80" />
-                  </button>
+                  <AddPreferenceButton
+                    productId={product.id}
+                    optionsOfProduct={product.options}
+                  />
                 </div>
                 <ul>
                   {product.options.map((optionRef) => {
                     return (
-                      <li key={optionRef.option.name}>
+                      <li
+                        className="group/lipreference relative flex text-sm hover:items-center"
+                        key={optionRef.option.name}
+                      >
+                        <div className="relative z-0 mr-4 mt-[6px] h-2 w-2 rounded-full bg-theme-green-main group-hover/lipreference:opacity-0" />
+                        <button
+                          onClick={() => {
+                            handleDeletePreference({
+                              productId: product.id,
+                              preferenceRefId: optionRef.id,
+                            });
+                          }}
+                          className="absolute left-0 z-10 text-red-700 opacity-0 group-hover/lipreference:opacity-100"
+                        >
+                          <Cross2Icon />
+                        </button>
                         {optionRef.option.name}
                       </li>
                     );
@@ -185,15 +253,31 @@ const ProductsDisplay = ({
                     Toppings
                   </p>
                   {/* Add toppings button */}
-                  <button className="rounded-full bg-gray-100 p-1 text-theme-green-main transition-all duration-200 ease-in-out hover:bg-gray-200 hover:shadow">
-                    <PlusIcon className="scale-80" />
-                  </button>
+                  <AddToppingButton
+                    productId={product.id}
+                    toppingsOfProduct={product.toppings}
+                  />
                 </div>
                 <ul>
                   {product.toppings.map((toppingRef) => {
                     return (
-                      <li key={toppingRef.topping.name}>
-                        {toppingRef.topping.name}
+                      <li
+                        className="group/litopping relative flex text-sm hover:items-center"
+                        key={toppingRef.topping.name}
+                      >
+                        <div className="relative z-0 mr-4 mt-[6px] h-2 w-2 rounded-full bg-theme-green-main group-hover/litopping:opacity-0" />
+                        <button
+                          onClick={() => {
+                            handleDeleteTopping({
+                              productId: product.id,
+                              toppingRefId: toppingRef.id,
+                            });
+                          }}
+                          className="absolute left-0 z-10 text-red-700 opacity-0 group-hover/litopping:opacity-100"
+                        >
+                          <Cross2Icon />
+                        </button>
+                        {toppingRef.topping.name}{" "}
                         {toVND(toppingRef.topping.price)}
                       </li>
                     );

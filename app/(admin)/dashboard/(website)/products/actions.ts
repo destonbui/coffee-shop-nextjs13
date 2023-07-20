@@ -44,7 +44,7 @@ export async function actionAddProduct({
         name,
         category_name,
         price,
-        upsize_price,
+        ...(upsize_price !== 0 ? { upsize_price: upsize_price } : {}),
         ...(subcategory_name ? { subcategory_name } : {}),
         ...(desc ? { description: desc } : {}),
         ...(tags ? { tags } : {}),

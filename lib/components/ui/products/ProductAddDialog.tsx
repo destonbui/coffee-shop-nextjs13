@@ -71,8 +71,7 @@ const ProductAddDialog = React.forwardRef(function ProductAddDialog(
     }
   };
 
-  const canSubmit =
-    name !== "" && file && price !== 0 && upsizePrice !== 0 && category;
+  const canSubmit = name !== "" && file && price !== 0 && category;
 
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
@@ -267,13 +266,13 @@ const ProductAddDialog = React.forwardRef(function ProductAddDialog(
             <label htmlFor="product-desc" className="h6 mb-1 text-gray-800">
               Description
             </label>
-            <input
+            <textarea
               value={desc}
               onChange={(e) => {
                 setDesc(e.target.value);
               }}
               className="body1 rounded-md border-2 border-gray-300 px-2 py-1 outline-none focus:border-theme-green-main"
-              type="text"
+              rows={3}
               id="product-desc"
               name="product-desc"
               placeholder="Enter product description"
@@ -320,7 +319,6 @@ const ProductAddDialog = React.forwardRef(function ProductAddDialog(
               id="product-upsize"
               name="product-upsize"
               placeholder="Enter product upsize price"
-              required
             />
           </div>
 

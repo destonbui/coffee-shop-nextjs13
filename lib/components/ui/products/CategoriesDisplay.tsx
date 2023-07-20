@@ -35,7 +35,7 @@ const CategoriesDisplay = ({ products, categories }: Props) => {
   }, [currentCategory]);
 
   return (
-    <div className="mt-4 w-full">
+    <div className="my-4 w-full">
       {/* Categories display */}
       <div className="mb-4 flex h-[100px] gap-4">
         <div

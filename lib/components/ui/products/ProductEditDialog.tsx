@@ -63,8 +63,7 @@ const ProductEditDialog = React.forwardRef(function ProductEditDialog(
     }
   };
 
-  const canSubmit =
-    name !== "" && price !== 0 && upsizePrice !== 0 && category && changes[0];
+  const canSubmit = name !== "" && price !== 0 && category && changes[0];
 
   React.useEffect(() => {
     const tagsStringify = JSON.stringify(tags.sort());
@@ -244,7 +243,7 @@ const ProductEditDialog = React.forwardRef(function ProductEditDialog(
             <label htmlFor="product-desc" className="h6 mb-1 text-gray-800">
               Description
             </label>
-            <input
+            <textarea
               value={desc}
               onChange={(e) => {
                 if (
@@ -263,7 +262,7 @@ const ProductEditDialog = React.forwardRef(function ProductEditDialog(
                 setDesc(e.target.value);
               }}
               className="body1 rounded-md border-2 border-gray-300 px-2 py-1 outline-none focus:border-theme-green-main"
-              type="text"
+              rows={3}
               id="product-desc"
               name="product-desc"
               placeholder="Enter product description"

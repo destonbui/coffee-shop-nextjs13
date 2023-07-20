@@ -118,10 +118,10 @@ const ProductsDisplay = ({
       {products.map((product) => {
         return (
           <div
-            className="group flex min-w-[400px] flex-col overflow-hidden rounded-md bg-white  shadow"
+            className="group flex min-w-[400px] max-w-[500px] flex-col overflow-hidden rounded-md bg-white  shadow"
             key={product.id}
           >
-            {/* Category display */}
+            {/* tags display */}
             <div className="flex gap-2 bg-gray-100 px-4 py-2">
               <span className="text-base text-gray-700">Tags:</span>
               {product.tags[0] ? (
@@ -151,7 +151,7 @@ const ProductsDisplay = ({
             </div>
             {/* Basic product info display */}
             <div className="flex ">
-              <div className="flex w-[150px] justify-center py-4">
+              <div className="w-[150px] flex-shrink-0 py-4">
                 <Image
                   className="drop-shadow-lg"
                   src={product.image_url}
@@ -170,6 +170,12 @@ const ProductsDisplay = ({
                 <span className=" text-2xl font-bold text-theme-green-main">
                   {toVND(product.price)}
                 </span>
+                {product.description && (
+                  <p className="body2">
+                    {product.description.slice(0, 180)}
+                    {product.description.length > 180 && "..."}
+                  </p>
+                )}
 
                 {/* Sizes display */}
                 {product.upsize_price && (
@@ -205,86 +211,90 @@ const ProductsDisplay = ({
               </div>
             </div>
 
-            <hr />
+            {product.category_name === "Thức uống" && (
+              <>
+                <hr />
 
-            <div className="flex h-[100px] overflow-auto px-4 py-2">
-              {/*  */}
-              <div className="flex-1">
-                <div className="flex items-center gap-2">
-                  <p className="font-semibold tracking-wide text-theme-green-main">
-                    Preferences
-                  </p>
-                  {/* Add preference button */}
-                  <AddPreferenceButton
-                    productId={product.id}
-                    optionsOfProduct={product.options}
-                  />
-                </div>
-                <ul>
-                  {product.options.map((optionRef) => {
-                    return (
-                      <li
-                        className="group/lipreference relative flex text-sm hover:items-center"
-                        key={optionRef.option.name}
-                      >
-                        <div className="relative z-0 mr-4 mt-[6px] h-2 w-2 rounded-full bg-theme-green-main group-hover/lipreference:opacity-0" />
-                        <button
-                          onClick={() => {
-                            handleDeletePreference({
-                              productId: product.id,
-                              preferenceRefId: optionRef.id,
-                            });
-                          }}
-                          className="absolute left-0 z-10 text-red-700 opacity-0 group-hover/lipreference:opacity-100"
-                        >
-                          <Cross2Icon />
-                        </button>
-                        {optionRef.option.name}
-                      </li>
-                    );
-                  })}
-                </ul>
-              </div>
+                <div className="flex h-[100px] overflow-auto px-4 py-2">
+                  {/*  */}
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2">
+                      <p className="font-semibold tracking-wide text-theme-green-main">
+                        Preferences
+                      </p>
+                      {/* Add preference button */}
+                      <AddPreferenceButton
+                        productId={product.id}
+                        optionsOfProduct={product.options}
+                      />
+                    </div>
+                    <ul>
+                      {product.options.map((optionRef) => {
+                        return (
+                          <li
+                            className="group/lipreference relative flex text-sm hover:items-center"
+                            key={optionRef.option.name}
+                          >
+                            <div className="relative z-0 mr-4 mt-[6px] h-2 w-2 rounded-full bg-theme-green-main group-hover/lipreference:opacity-0" />
+                            <button
+                              onClick={() => {
+                                handleDeletePreference({
+                                  productId: product.id,
+                                  preferenceRefId: optionRef.id,
+                                });
+                              }}
+                              className="absolute left-0 z-10 text-red-700 opacity-0 group-hover/lipreference:opacity-100"
+                            >
+                              <Cross2Icon />
+                            </button>
+                            {optionRef.option.name}
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  </div>
 
-              {/*  */}
-              <div className="flex-1">
-                <div className="flex items-center gap-2">
-                  <p className="font-semibold tracking-wide text-theme-green-main">
-                    Toppings
-                  </p>
-                  {/* Add toppings button */}
-                  <AddToppingButton
-                    productId={product.id}
-                    toppingsOfProduct={product.toppings}
-                  />
+                  {/*  */}
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2">
+                      <p className="font-semibold tracking-wide text-theme-green-main">
+                        Toppings
+                      </p>
+                      {/* Add toppings button */}
+                      <AddToppingButton
+                        productId={product.id}
+                        toppingsOfProduct={product.toppings}
+                      />
+                    </div>
+                    <ul>
+                      {product.toppings.map((toppingRef) => {
+                        return (
+                          <li
+                            className="group/litopping relative flex text-sm hover:items-center"
+                            key={toppingRef.topping.name}
+                          >
+                            <div className="relative z-0 mr-4 mt-[6px] h-2 w-2 rounded-full bg-theme-green-main group-hover/litopping:opacity-0" />
+                            <button
+                              onClick={() => {
+                                handleDeleteTopping({
+                                  productId: product.id,
+                                  toppingRefId: toppingRef.id,
+                                });
+                              }}
+                              className="absolute left-0 z-10 text-red-700 opacity-0 group-hover/litopping:opacity-100"
+                            >
+                              <Cross2Icon />
+                            </button>
+                            {toppingRef.topping.name}{" "}
+                            {toVND(toppingRef.topping.price)}
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  </div>
                 </div>
-                <ul>
-                  {product.toppings.map((toppingRef) => {
-                    return (
-                      <li
-                        className="group/litopping relative flex text-sm hover:items-center"
-                        key={toppingRef.topping.name}
-                      >
-                        <div className="relative z-0 mr-4 mt-[6px] h-2 w-2 rounded-full bg-theme-green-main group-hover/litopping:opacity-0" />
-                        <button
-                          onClick={() => {
-                            handleDeleteTopping({
-                              productId: product.id,
-                              toppingRefId: toppingRef.id,
-                            });
-                          }}
-                          className="absolute left-0 z-10 text-red-700 opacity-0 group-hover/litopping:opacity-100"
-                        >
-                          <Cross2Icon />
-                        </button>
-                        {toppingRef.topping.name}{" "}
-                        {toVND(toppingRef.topping.price)}
-                      </li>
-                    );
-                  })}
-                </ul>
-              </div>
-            </div>
+              </>
+            )}
           </div>
         );
       })}

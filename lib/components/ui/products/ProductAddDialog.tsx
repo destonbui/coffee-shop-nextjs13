@@ -14,6 +14,7 @@ import { actionAddProduct } from "@/app/(admin)/dashboard/(website)/products/act
 
 import CategorySelect from "./CategorySelect";
 import SubcategorySelect from "./SubcategorySelect";
+import { blobToDataUrl } from "@/lib/utils/thumbhash";
 
 interface Props {}
 
@@ -101,8 +102,11 @@ const ProductAddDialog = React.forwardRef(function ProductAddDialog(
       }
 
       if (data.filepath) {
+        const blurUrl = await blobToDataUrl(file as Blob);
+
         const { product, error } = await actionAddProduct({
           img_url: data.filepath,
+          blurUrl: blurUrl,
           name,
           desc,
           price,
@@ -122,6 +126,12 @@ const ProductAddDialog = React.forwardRef(function ProductAddDialog(
       }
     }
   };
+
+  React.useEffect(() => {
+    return () => {
+      previewSrc && window.URL.revokeObjectURL(previewSrc);
+    };
+  });
 
   return (
     <Dialog.Content className="fixed left-1/2 top-1/2 max-h-[600px] min-h-[300px] w-[500px] -translate-x-1/2 -translate-y-1/2 overflow-auto rounded-md bg-white p-4">
@@ -166,8 +176,12 @@ const ProductAddDialog = React.forwardRef(function ProductAddDialog(
                   onChange={(e) => {
                     const files = e.target.files;
 
-                    if (files && files[0]) {
-                      setSrc(window.URL.createObjectURL(files[0] as Blob));
+                    if (files) {
+                      if (previewSrc) {
+                        setSrc(null);
+                        window.URL.revokeObjectURL(previewSrc);
+                      }
+                      setSrc(window.URL.createObjectURL(files[0]));
                       setFile(files[0]);
                     }
                   }}

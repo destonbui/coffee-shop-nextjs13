@@ -5,14 +5,20 @@ import { revalidatePath } from "next/cache";
 
 type addCategoryProps = {
   filePath: string;
+  blurUrl: string;
   name: string;
 };
 
-export async function actionAddCategory({ filePath, name }: addCategoryProps) {
+export async function actionAddCategory({
+  filePath,
+  blurUrl,
+  name,
+}: addCategoryProps) {
   try {
     const category = await prisma.category.create({
       data: {
         image_url: filePath,
+        image_blurUrl: blurUrl,
         name: name,
       },
     });

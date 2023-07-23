@@ -10,6 +10,7 @@ import { Cross2Icon } from "@radix-ui/react-icons";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { actionAddCategory } from "@/app/(admin)/dashboard/(website)/categories/actions";
+import { blobToDataUrl } from "@/lib/utils/thumbhash";
 
 interface Props {}
 
@@ -68,8 +69,11 @@ const CategoryAddDialog = React.forwardRef(function CarouselAddDialog(
       }
 
       if (data.filepath) {
+        const blurUrl = await blobToDataUrl(file as Blob);
+
         const { category, error } = await actionAddCategory({
           filePath: data.filepath,
+          blurUrl: blurUrl,
           name: name,
         });
 
@@ -86,6 +90,12 @@ const CategoryAddDialog = React.forwardRef(function CarouselAddDialog(
       }
     }
   };
+
+  React.useEffect(() => {
+    return () => {
+      previewSrc && window.URL.revokeObjectURL(previewSrc);
+    };
+  });
 
   return (
     <Dialog.Content className="fixed left-1/2 top-1/2 max-h-[600px] min-h-[300px] w-[500px] -translate-x-1/2 -translate-y-1/2 overflow-auto rounded-md bg-white p-4">
@@ -125,8 +135,12 @@ const CategoryAddDialog = React.forwardRef(function CarouselAddDialog(
                   onChange={(e) => {
                     const files = e.target.files;
 
-                    if (files && files[0]) {
-                      setSrc(window.URL.createObjectURL(files[0] as Blob));
+                    if (files) {
+                      if (previewSrc) {
+                        setSrc(null);
+                        window.URL.revokeObjectURL(previewSrc);
+                      }
+                      setSrc(window.URL.createObjectURL(files[0]));
                       setFile(files[0]);
                     }
                   }}

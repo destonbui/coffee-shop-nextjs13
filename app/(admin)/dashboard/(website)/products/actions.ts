@@ -18,6 +18,7 @@ import { getToppings } from "@/lib/prisma/toppings";
 
 type AddProductData = {
   img_url: string;
+  blurUrl: string;
   name: string;
   category_name: string;
   subcategory_name?: string;
@@ -29,6 +30,7 @@ type AddProductData = {
 
 export async function actionAddProduct({
   img_url,
+  blurUrl,
   name,
   category_name,
   subcategory_name,
@@ -41,6 +43,7 @@ export async function actionAddProduct({
     const product = await prisma.product.create({
       data: {
         image_url: img_url,
+        image_blurUrl: blurUrl,
         name,
         category_name,
         price,

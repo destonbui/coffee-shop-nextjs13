@@ -5,6 +5,7 @@ import { revalidatePath } from "next/cache";
 
 type addBannerProps = {
   filePath: string;
+  blurUrl: string;
   desc: string;
   link?: string;
   position: number;
@@ -12,6 +13,7 @@ type addBannerProps = {
 
 export async function actionAddBanner({
   filePath,
+  blurUrl,
   desc,
   link,
   position,
@@ -20,6 +22,7 @@ export async function actionAddBanner({
     const banner = await prisma.banner.create({
       data: {
         image_url: filePath,
+        image_blurUrl: blurUrl,
         description: desc,
         position: position,
         ...(link ? { href: link } : {}),

@@ -12,6 +12,7 @@ import { Cross2Icon } from "@radix-ui/react-icons";
 
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { blobToDataUrl } from "@/lib/utils/thumbhash";
 
 interface Props {}
 
@@ -71,10 +72,13 @@ const CarouselAddDialog = React.forwardRef(function CarouselAddDialog(
       }
 
       if (data.filepath) {
+        const thumbhashBlurDataUrl = await blobToDataUrl(file as Blob);
+
         const { banner, error } = await actionAddBanner({
           filePath: data.filepath,
           desc: desc,
           position: Date.now(),
+          blurUrl: thumbhashBlurDataUrl,
           ...(link !== "" ? { link } : {}),
         });
 
@@ -91,6 +95,12 @@ const CarouselAddDialog = React.forwardRef(function CarouselAddDialog(
       }
     }
   };
+
+  React.useEffect(() => {
+    return () => {
+      previewSrc && window.URL.revokeObjectURL(previewSrc);
+    };
+  });
 
   return (
     <Dialog.Content className="fixed left-1/2 top-1/2 max-h-[600px] min-h-[300px] w-[500px] -translate-x-1/2 -translate-y-1/2 overflow-auto rounded-md bg-white p-4">
@@ -130,10 +140,14 @@ const CarouselAddDialog = React.forwardRef(function CarouselAddDialog(
                   id="file-input"
                   accept="image/*"
                   required
-                  onChange={(e) => {
+                  onChange={async (e) => {
                     const files = e.target.files;
 
                     if (files) {
+                      if (previewSrc) {
+                        setSrc(null);
+                        window.URL.revokeObjectURL(previewSrc);
+                      }
                       setSrc(window.URL.createObjectURL(files[0]));
                       setFile(files[0]);
                     }

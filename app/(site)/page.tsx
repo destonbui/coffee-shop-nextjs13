@@ -34,7 +34,7 @@ async function fetchBanners() {
 }
 
 async function fetchFeaturedProducts() {
-  const endpoint = process.env.HOST + "/api/products?featured=true";
+  const endpoint = process.env.HOST + "/api/products?featured=1";
 
   const res = await fetch(endpoint, {
     next: { revalidate: 60 },
@@ -50,7 +50,6 @@ async function fetchFeaturedProducts() {
 const Home = async ({}: HomeProps) => {
   const bannersData = fetchBanners();
   const featuredProductsData = fetchFeaturedProducts();
-  // const categoriesData = fetchCategories();
 
   const [banners, featuredProducts] = await Promise.all([
     bannersData,

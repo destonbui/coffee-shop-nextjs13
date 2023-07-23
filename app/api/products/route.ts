@@ -44,7 +44,7 @@ export async function GET(request: Request) {
     ...(subcategory && { subcategory }),
   });
 
-  if (!products && error) {
+  if (error) {
     return NextResponse.error();
   }
 

@@ -9,18 +9,18 @@ export async function GET(request: Request) {
   const category = searchParams.get("category");
   const subcategory = searchParams.get("subcategory");
 
-  type GetFeaturedProductsProps = {
+  type GetProductsProps = {
     featured?: boolean;
     limit?: number;
     category?: string;
     subcategory?: string;
   };
-  async function getFeatured({
+  async function getProducts({
     featured,
     limit,
     category,
     subcategory,
-  }: GetFeaturedProductsProps) {
+  }: GetProductsProps) {
     try {
       const products = await prisma.product.findMany({
         where: {
@@ -37,15 +37,15 @@ export async function GET(request: Request) {
     }
   }
 
-  const { products, error } = await getFeatured({
+  const { products, error } = await getProducts({
     ...(featured && { featured: Boolean(featured) }),
     ...(Boolean(Number(limit)) && { limit: Number(limit) }),
     ...(category && { category }),
     ...(subcategory && { subcategory }),
   });
 
-  if (error) {
-    return NextResponse.error();
+  if (!products && error) {
+    throw new Error("Fetch products failed");
   }
 
   return NextResponse.json(products);

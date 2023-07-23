@@ -138,3 +138,31 @@ export async function deleteProduct({ productId }: { productId: string }) {
     return { error };
   }
 }
+
+type GetProductsProps = {
+  featured?: boolean;
+  limit?: number;
+  category?: string;
+  subcategory?: string;
+};
+export async function getProductsFromApi({
+  featured,
+  limit,
+  category,
+  subcategory,
+}: GetProductsProps) {
+  try {
+    const products = await prisma.product.findMany({
+      where: {
+        ...(featured && { tags: { has: "FEATURED" } }),
+        ...(category && { category_name: category }),
+        ...(subcategory && { subcategory_name: subcategory }),
+      },
+      ...(limit && { take: Number(limit) }),
+    });
+
+    return { products };
+  } catch (error) {
+    return { error };
+  }
+}

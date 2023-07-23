@@ -33,20 +33,6 @@ async function fetchBanners() {
   return res.json();
 }
 
-async function fetchCategories() {
-  const endpoint = process.env.HOST + "/api/categories";
-
-  const res = await fetch(endpoint, {
-    next: { revalidate: 60 },
-  });
-
-  if (!res.ok) {
-    throw new Error("Fetch categories failed");
-  }
-
-  return res.json();
-}
-
 async function fetchFeaturedProducts() {
   const endpoint = process.env.HOST + "/api/products?featured=true";
 
@@ -75,7 +61,6 @@ const Home = async ({}: HomeProps) => {
     <>
       <HeroCarousel items={banners} />
 
-      {/* <CategoriesNav categories={categories} /> */}
       {/* Featured section */}
       <FeaturedProductsDisplay featuredProducts={featuredProducts} />
     </>

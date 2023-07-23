@@ -52,6 +52,7 @@ enum UserRole {
 model Banner {
   id          String  @id @default(cuid()) @map("_id")
   image_url   String  @unique
+  image_blurUrl  String
   position    Int
   description String
   href        String?
@@ -65,6 +66,7 @@ model Category {
   name                String   @unique
   description         String?
   image_url           String   @unique
+  image_blurUrl          String
   active              Boolean  @default(true)
   products_total      Int      @default(0)
   subcategories_names String[]
@@ -96,6 +98,7 @@ model Product {
   subcategory_name String?
   active           Boolean  @default(true)
   image_url     String
+  image_blurUrl    String
   name             String   @unique
   description      String?
   price            Int

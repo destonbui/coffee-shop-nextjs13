@@ -33,35 +33,32 @@ async function fetchBanners() {
   return res.json();
 }
 
-async function fetchFeaturedProducts() {
-  const endpoint = process.env.HOST + "/api/products?featured=1";
+// async function fetchFeaturedProducts() {
+//   const endpoint = process.env.HOST + "/api/products?featured=1";
 
-  const res = await fetch(endpoint, {
-    next: { revalidate: 60 },
-  });
+//   const res = await fetch(endpoint, {
+//     next: { revalidate: 60 },
+//   });
 
-  if (!res.ok) {
-    throw new Error("Internal Server Error");
-  }
+//   if (!res.ok) {
+//     throw new Error("Internal Server Error");
+//   }
 
-  return res.json();
-}
+//   return res.json();
+// }
 
 const Home = async ({}: HomeProps) => {
   const bannersData = fetchBanners();
-  const featuredProductsData = fetchFeaturedProducts();
+  // const featuredProductsData = fetchFeaturedProducts();
 
-  const [banners, featuredProducts] = await Promise.all([
-    bannersData,
-    featuredProductsData,
-  ]);
+  const [banners] = await Promise.all([bannersData]);
 
   return (
     <>
       <HeroCarousel items={banners} />
 
       {/* Featured section */}
-      <FeaturedProductsDisplay featuredProducts={featuredProducts} />
+      {/* <FeaturedProductsDisplay featuredProducts={featuredProducts} /> */}
     </>
   );
 };

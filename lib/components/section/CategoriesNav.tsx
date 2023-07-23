@@ -15,6 +15,7 @@ const CategoriesNav = ({ categories }: Props) => {
         return (
           <CategoryItem
             key={i}
+            blurUrl={category.image_blurUrl}
             src={category.image_url}
             title={category.name}
             link={"#"}

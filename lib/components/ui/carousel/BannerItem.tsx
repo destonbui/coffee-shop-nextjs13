@@ -45,10 +45,11 @@ const BannerItem = ({ data, forwardPos, backwardPos }: Props) => {
       {/* details */}
       <AspectRatio ratio={12 / 5} className="-mx-2">
         <Image
-          priority
           src={data.image_url}
-          width={1280}
-          height={534}
+          fill
+          style={{ objectFit: "cover" }}
+          placeholder="blur"
+          blurDataURL={data.image_blurUrl}
           alt={data.description}
           className="h-auto w-full"
         />

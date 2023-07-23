@@ -4,11 +4,12 @@ import React from "react";
 
 export interface CategoryItemProps {
   src: string | StaticImageData;
+  blurUrl: string;
   title: string;
   link: string;
 }
 
-const CategoryItem = ({ src, title, link }: CategoryItemProps) => {
+const CategoryItem = ({ src, blurUrl, title, link }: CategoryItemProps) => {
   return (
     <Link href={link} as={link}>
       <div
@@ -20,7 +21,8 @@ const CategoryItem = ({ src, title, link }: CategoryItemProps) => {
           alt={title}
           height={116}
           width={116}
-          priority
+          placeholder="blur"
+          blurDataURL={blurUrl}
         />
 
         <span className="pointer-events-none text-center font-baloo text-sm font-medium text-theme-green-main md:text-base">

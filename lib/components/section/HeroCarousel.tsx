@@ -48,6 +48,7 @@ const HeroCarousel = ({ items }: Props) => {
             key={item.id}
             active={i === current}
             src={item.image_url}
+            blurUrl={item.image_blurUrl}
             alt={item.description}
             link={item.href ? item.href : "#"}
           />

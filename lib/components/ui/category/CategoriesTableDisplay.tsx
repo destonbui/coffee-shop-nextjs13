@@ -33,6 +33,8 @@ const CategoriesTableDisplay = ({ categories }: Props) => {
                     alt={category.name}
                     width={100}
                     height={100}
+                    placeholder="blur"
+                    blurDataURL={category.image_blurUrl}
                     className="h-[50px] w-auto"
                   />
                 </td>

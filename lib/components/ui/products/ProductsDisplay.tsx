@@ -158,6 +158,8 @@ const ProductsDisplay = ({
                   alt={product.name}
                   width={150}
                   height={150}
+                  placeholder="blur"
+                  blurDataURL={product.image_blurUrl}
                 />
               </div>
 

@@ -5,17 +5,23 @@ import { useRouter } from "next/navigation";
 
 export interface CarouselItemProps {
   src: string | StaticImageData;
+  blurUrl: string;
   alt: string;
   link: string;
   active?: Boolean;
 }
 
-const CarouselItem = ({ src, alt, link, active }: CarouselItemProps) => {
+const CarouselItem = ({
+  src,
+  blurUrl,
+  alt,
+  link,
+  active,
+}: CarouselItemProps) => {
   const router = useRouter();
 
   return (
     <Image
-      priority={true}
       className={`top-0 h-auto w-full cursor-pointer ${
         active
           ? "relative z-10 translate-x-0 opacity-100"
@@ -28,6 +34,8 @@ const CarouselItem = ({ src, alt, link, active }: CarouselItemProps) => {
       width={1280}
       height={534}
       alt={alt}
+      placeholder="blur"
+      blurDataURL={blurUrl}
     />
   );
 };

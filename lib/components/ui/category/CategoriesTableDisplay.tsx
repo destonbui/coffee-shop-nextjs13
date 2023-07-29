@@ -17,7 +17,6 @@ const CategoriesTableDisplay = ({ categories }: Props) => {
           <tr>
             <th className="min-w-[80px]">Image</th>
             <th className="min-w-[200px]">Name</th>
-            <th className="min-w-[200px]">Total products</th>
             <th className="min-w-[200px]">Subcategories</th>
             <th className="min-w-[400px] max-w-[500px]">Description</th>
             <th className="min-w-[80px]"></th>
@@ -40,9 +39,6 @@ const CategoriesTableDisplay = ({ categories }: Props) => {
                 </td>
                 <td>
                   <span>{category.name}</span>
-                </td>
-                <td>
-                  <span>{category.products_total}</span>
                 </td>
                 <td>
                   <span>

@@ -68,7 +68,6 @@ model Category {
   image_url           String   @unique
   image_blurUrl          String
   active              Boolean  @default(true)
-  products_total      Int      @default(0)
   subcategories_names String[]
 
   subcategories Subcategory[]
@@ -83,7 +82,6 @@ model Subcategory {
   description    String?
   active         Boolean @default(true)
   category_name  String
-  products_total Int     @default(0)
 
   category Category @relation(fields: [category_name], references: [name], onDelete: Cascade)
 

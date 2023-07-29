@@ -10,10 +10,7 @@ import { Cross2Icon } from "@radix-ui/react-icons";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
-import {
-  actionAddProduct,
-  actionUpdateCategoryProductCount,
-} from "@/app/(admin)/dashboard/(website)/products/actions";
+import { actionAddProduct } from "@/app/(admin)/dashboard/(website)/products/actions";
 
 import CategorySelect from "./CategorySelect";
 import SubcategorySelect from "./SubcategorySelect";

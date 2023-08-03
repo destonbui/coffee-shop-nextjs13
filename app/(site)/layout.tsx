@@ -6,6 +6,7 @@ import Navbar from "@/lib/components/navigation/Navbar";
 import Footer from "@/lib/components/navigation/Footer";
 
 import { Baloo_2, Arimo } from "next/font/google";
+import { NavbarVisibilityContextProvider } from "@/lib/contexts/NavbarVisibilityContext";
 
 interface Props {
   children: React.ReactNode;
@@ -36,11 +37,14 @@ const RootLayout = ({ children }: Props) => {
       <NextAuthPovider>
         <body className="root">
           <main className="main">
-            <Navbar />
-            <div className="content_wrapper">
-              <div className="content">{children}</div>
-              <Footer />
-            </div>
+            <NavbarVisibilityContextProvider>
+              <Navbar />
+
+              <div className="content_wrapper">
+                <div className="content">{children}</div>
+                <Footer />
+              </div>
+            </NavbarVisibilityContextProvider>
           </main>
         </body>
       </NextAuthPovider>

@@ -10,12 +10,14 @@ const Cart = (props: Props) => {
 
   return (
     <div
-      className="relative pr-2 cursor-pointer"
+      className="relative cursor-pointer pr-2"
       onClick={() => setCount((prev) => prev + 1)}
     >
-      <BagIcon />
+      <div className=" relative h-9 w-9">
+        <BagIcon />
+      </div>
       <div
-        className={` w-6 h-6 bg-theme-green-main text-white absolute top-[-4px] right-0 rounded-full flex items-center justify-center text-xs font-semibold font-arimo pointer-events-none z-50`}
+        className={` pointer-events-none absolute right-0 top-[-4px] z-50 flex h-6 w-6 items-center justify-center rounded-full bg-theme-green-main font-arimo text-xs font-semibold text-white`}
       >
         {itemsCount}
       </div>

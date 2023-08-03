@@ -34,7 +34,7 @@ const HeroCarousel = ({ items }: Props) => {
 
   return (
     <section
-      className="relative flex h-min flex-col items-center overflow-hidden rounded-none xl:rounded-lg"
+      className="relative flex flex-shrink-0 flex-col items-center overflow-hidden rounded-none xl:rounded-lg"
       onMouseOver={() => {
         setHover(true);
       }}

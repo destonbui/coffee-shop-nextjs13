@@ -53,7 +53,7 @@ section::-webkit-scrollbar {
 }
 
 .content_wrapper {
-  @apply flex flex-grow flex-col;
+  @apply relative flex flex-grow flex-col;
 }
 
 .content {
@@ -61,11 +61,33 @@ section::-webkit-scrollbar {
 }
 
 .navbar_container {
-  @apply sticky top-0 z-50 flex flex-col bg-white px-4 py-2 lg:py-4 2xl:px-0;
+  @apply top-0 z-50 flex flex-col bg-white px-4 py-2 md:sticky lg:py-4 2xl:px-0;
 }
 
 .Dialog_Overlay {
   @apply fixed inset-0 bg-gray-950/50;
+}
+
+#search-dialog {
+  position: fixed;
+  z-index: 100;
+  top: 0;
+
+  height: 100vh;
+  width: 100vw;
+  background-color: white;
+  animation-name: slideIn;
+  animation-duration: 300ms;
+  animation-timing-function: ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    top: 100%;
+  }
+  to {
+    top: 0;
+  }
 }
 
 table {

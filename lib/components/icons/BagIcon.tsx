@@ -7,10 +7,9 @@ interface Props {}
 const BagIcon = (props: Props) => {
   return (
     <Image
-      className="pointer-events-none h-9 w-auto"
       src={bagSvg}
-      width={24}
-      height={24}
+      fill
+      style={{ objectFit: "contain" }}
       alt="Shopping bag"
     />
   );
